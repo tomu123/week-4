@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_27_233140) do
+ActiveRecord::Schema.define(version: 2022_03_27_233537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "order_lines", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "quantity"
+    t.decimal "price", precision: 8, scale: 2
+    t.decimal "total", precision: 8, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_order_lines_on_order_id"
+    t.index ["product_id"], name: "index_order_lines_on_product_id"
+  end
 
 # Could not dump table "orders" because of following StandardError
 #   Unknown type 'order_status' for column 'order_status'
@@ -43,5 +55,7 @@ ActiveRecord::Schema.define(version: 2022_03_27_233140) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "order_lines", "orders"
+  add_foreign_key "order_lines", "products"
   add_foreign_key "orders", "users"
 end
