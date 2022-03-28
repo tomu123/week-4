@@ -8,9 +8,6 @@ const sass_url_loader = {
       loader: 'css-loader',
       options: {}
     }, {
-      loader: 'resolve-url-loader',
-      options: {}
-    }, {
       loader: 'sass-loader',
       options: {
         sourceMap: true, // <-- !!IMPORTANT!!
