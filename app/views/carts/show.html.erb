@@ -1,0 +1,4 @@
+<h1>Cart</h1>
+<% @cart.line_items.each do |li| %>
+  <p><%= li.product.name %></p>
+<% end %>

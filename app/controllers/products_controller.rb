@@ -17,7 +17,9 @@ class ProductsController < ApplicationController
 
   def destroy; end
 
-  def add_to_cart; end
+  def add_to_cart
+    @line_item = @cart.line_items.create(product_id: params[:id])
+  end
 
   private
 
@@ -26,5 +28,9 @@ class ProductsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     @cart = Cart.create
     session[:cart_id] = @cart.id
+  end
+
+  def product_params
+    params.require(:product).permit(:name, :description, :price, :stock)
   end
 end
