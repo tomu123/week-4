@@ -18,7 +18,11 @@ class ProductsController < ApplicationController
   def destroy; end
 
   def add_to_cart
-    @line_item = @cart.line_items.create(product_id: params[:id])
+    if @line_item = @cart.line_items.find_by(product_id: params[:id])
+      @line_item.update(quantity: @line_item.quantity + 1)
+    else
+      @line_item = @cart.line_items.create(product_id: params[:id], quantity: 1)
+    end
   end
 
   private
