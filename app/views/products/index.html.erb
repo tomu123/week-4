@@ -1,2 +1,28 @@
-<h1>Products#index</h1>
-<p>Find me in app/views/products/index.html.erb</p>
+<div class="container">
+  <div class="card my-4">
+    <div class="card-header bg-info rounded">
+      <h1 class="text-light text-center">Products:</h1>
+    </div>
+  </div>
+  <div class="grid">
+    <% @products.each do |p| %>
+      <div class="g-col-4">
+        <div class="card my-3 bg-info">
+          <div class="card-header">
+            <h3><%= p.name %></h3>
+          </div>
+          <div class="card-body">
+            <h4 class="ms-5">Details:</h4>
+            <div class="d-flex justify-content-evenly">
+              <p class="text-center fs-4">Price: <%= p.price.to_f %></p>
+              <p class="text-center fs-4"><%= p.stock %> left</p>
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <%= link_to "ADD TO CARD", add_to_cart_product_path(p), method: :post, class:'btn btn-primary'%>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
