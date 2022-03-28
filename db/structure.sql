@@ -67,6 +67,39 @@ ALTER SEQUENCE public.carts_id_seq OWNED BY public.carts.id;
 
 
 --
+-- Name: line_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.line_items (
+    id bigint NOT NULL,
+    cart_id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    quantity integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: line_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.line_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: line_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.line_items_id_seq OWNED BY public.line_items.id;
+
+
+--
 -- Name: order_lines; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -225,6 +258,13 @@ ALTER TABLE ONLY public.carts ALTER COLUMN id SET DEFAULT nextval('public.carts_
 
 
 --
+-- Name: line_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.line_items ALTER COLUMN id SET DEFAULT nextval('public.line_items_id_seq'::regclass);
+
+
+--
 -- Name: order_lines id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -269,6 +309,14 @@ ALTER TABLE ONLY public.carts
 
 
 --
+-- Name: line_items line_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.line_items
+    ADD CONSTRAINT line_items_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: order_lines order_lines_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -306,6 +354,20 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_line_items_on_cart_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_line_items_on_cart_id ON public.line_items USING btree (cart_id);
+
+
+--
+-- Name: index_line_items_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_line_items_on_product_id ON public.line_items USING btree (product_id);
 
 
 --
@@ -351,11 +413,27 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING bt
 
 
 --
+-- Name: line_items fk_rails_11e15d5c6b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.line_items
+    ADD CONSTRAINT fk_rails_11e15d5c6b FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
 -- Name: order_lines fk_rails_83e960fa54; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.order_lines
     ADD CONSTRAINT fk_rails_83e960fa54 FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- Name: line_items fk_rails_af645e8e5f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.line_items
+    ADD CONSTRAINT fk_rails_af645e8e5f FOREIGN KEY (cart_id) REFERENCES public.carts(id);
 
 
 --
@@ -387,6 +465,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220327185826'),
 ('20220327233140'),
 ('20220327233537'),
-('20220328003926');
+('20220328003926'),
+('20220328004801');
 
 
