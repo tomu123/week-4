@@ -5,6 +5,6 @@ class Product < ApplicationRecord
   has_many :customers, through: :orders
   scope :sort_by_price, ->(desc) { desc ? unscoped.order(price: :desc) : unscoped.order(:price) }
   scope :sort_by_sales, -> { unscoped.joins(:order_lines).group(:id).order('sum(order_lines.quantity) desc') }
-  scope :search_by_name, ->(search_key) { where("name ~ \'^.*?.*$\'", search_key) }
+  scope :search_by_name, ->(search_key) { where('name ~* ?', "^.*#{search_key}.*$") }
   default_scope { order(:name) }
 end

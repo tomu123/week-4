@@ -38,6 +38,15 @@ class ProductsController < ApplicationController
     end
   end
 
+  def search
+    if params[:search_key].blank?
+      redirect_to products_url
+    else
+      @products = Product.search_by_name(params[:search_key])
+      render :index
+    end
+  end
+
   private
 
   def set_cart
