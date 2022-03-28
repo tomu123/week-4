@@ -1,0 +1,31 @@
+<div class="container">
+  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-1 border-bottom bg-light">
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <li><%= link_to "Products", products_path, class: "nav-link px-2 link-secondary" %></li>
+      <li><%= link_to "Cart", cart_path, class: "nav-link px-2 link-secondary" %></li>
+      <% if user_signed_in? %>
+        <li>
+          <%= link_to "Order History", orders_path, class: "nav-link px-2 link-secondary"%>
+        </li>
+      <% end %>
+    </ul>
+    <div class="col-md-3 text-end">
+      <% if user_signed_in? %>
+        <div class="flex-shrink-0 dropdown">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-user-secret fa-2x"></i>
+          </a>
+          <ul class="dropdown-menu text-small shadow dropdown-menu-end" aria-labelledby="dropdownUser2" style="">
+            <li><%= link_to "Editar Usuario", edit_user_registration_path, class:"dropdown-item"%></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><%= link_to "Salir", destroy_user_session_path, method: :delete ,class:"dropdown-item"%></li>
+          </ul>
+        </div>
+      <% else %>
+        <%= link_to "Inicia aquí", user_session_path, class: "btn btn-primary" %>
+        <%= link_to "Registrate", new_user_registration_path, class: "btn btn-outline-primary me-2" %>
+      <% end %>
+    </div>
+  </header>
+</div>
