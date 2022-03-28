@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_cart
   before_action :set_product, only: %i[edit destroy update]
-  before_action :only_admin, except: %i[index show add_to_cart]
+  before_action :only_admin, except: %i[index show add_to_cart search]
 
   def index
     @products = Product.all
@@ -65,6 +65,6 @@ class ProductsController < ApplicationController
   end
 
   def only_admin
-    redirect_to products_path unless current_user.admin
+    redirect_to products_path unless user_signed_in? && current_user.admin
   end
 end
