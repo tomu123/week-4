@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="card my-4">
+    <div class="card-header bg-warning rounded">
+      <h1 class="text-light text-center">Orders:</h1>
+    </div>
+  </div>
+  <table class="table table-bordered table-warning table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Date</th>
+        <th scope="col">Status</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% no = 0 %>
+      <% @orders.each do |o| %>
+        <!-- Button trigger modal -->
+        <% no+=1 %>
+        <tr data-bs-toggle="modal" data-bs-target="#<%= "order_#{no}" %>">
+          <th scope="row"><%= no %></th>
+          <td><%= o.date %></td>
+          <td><%= o.order_status %></td>
+          <td>$<%= o.total.to_f%></td>
+        </tr>
+      <% end %>
+      <% if @orders.empty? %>
+        <div class="alert alert-warning">There are not any orders</div>
+      <% end %>
+    </tbody>
+  </table>
+  <% no = 0 %>
+  <% @orders.each do |o| %>
+    <!-- Button trigger modal -->
+    <% no+=1 %>
+    <!-- Modal -->
+    <div class="modal fade" id="<%= "order_#{no}" %>" tabindex="-1" aria-labelledby="<%= "order_#{no}" %>Label" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="width:50vw;max-width:50vw">
+        <div class="modal-content" >
+          <div class="modal-header">
+            <h5 class="modal-title" id="<%= "order_#{no}" %>Label"><%= o.date %></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered table-warning table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Product</th>
+                  <th scope="col">Qty</th>
+                  <th scope="col">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% no1 = 0 %>
+                <% o.order_lines.each do |ol| %>
+                  <!-- Button trigger modal -->
+                  <% no1+=1 %>
+                  <tr>
+                    <th scope="row"><%= no1 %></th>
+                    <td><%= ol.product.name %></td>
+                    <td><%= ol.quantity %></td>
+                    <td><%= ol.total %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Go Back To Order History</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
