@@ -15,7 +15,10 @@ class ProductsController < ApplicationController
 
   def update; end
 
-  def destroy; end
+  def destroy
+    Product.find(params[:id]).destroy
+    redirect_to products_url
+  end
 
   def add_to_cart
     if @line_item = @cart.line_items.find_by(product_id: params[:id])

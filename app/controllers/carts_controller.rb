@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
-  before_action :set_cart, :authenticate_user!
+  before_action :set_cart
+  before_action :authenticate_user!, only: [:checkout]
 
   def show; end
 
@@ -7,11 +8,15 @@ class CartsController < ApplicationController
     @order = Order.create!(date: Time.now, user: current_user)
     @cart.line_items.each do |li|
       order_line = @order.order_lines.build(product: li.product, quantity: li.quantity)
-      unless order_line.save
-        flash[:alert] = order_line.errors.full_messages
-        redirect_to checkout_cart_path
-      end
+      next if order_line.save
+
+      flash[:alert] = order_line.errors.full_messages
+      li.destroy
+      @order.destroy
+      redirect_to cart_path
+      return
     end
+    @order.destroy if @order.order_lines.empty?
     @cart.destroy
     redirect_to products_url
   end

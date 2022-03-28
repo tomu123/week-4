@@ -19,7 +19,12 @@
             </div>
           </div>
           <div class="card-footer text-center">
+          <% if user_signed_in? && current_user.admin %>
+            <%= link_to 'EDIT', p, class:'btn btn-primary'%>
+            <%= link_to 'DELETE', p,method: :delete, class:'btn btn-danger'%>
+          <% else %>
             <%= link_to "ADD TO CARD", add_to_cart_product_path(p), method: :post, class:'btn btn-primary'%>
+          <% end %>
           </div>
         </div>
       </div>

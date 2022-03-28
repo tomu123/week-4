@@ -106,7 +106,7 @@ ALTER SEQUENCE public.line_items_id_seq OWNED BY public.line_items.id;
 CREATE TABLE public.order_lines (
     id bigint NOT NULL,
     order_id bigint NOT NULL,
-    product_id bigint NOT NULL,
+    product_id bigint,
     quantity integer,
     price numeric(8,2),
     total numeric(8,2),
