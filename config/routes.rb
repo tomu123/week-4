@@ -7,5 +7,7 @@ Rails.application.routes.draw do
       post 'add_to_cart'
     end
   end
-  resource :cart, only: [:show]
+  resource :cart, only: [:show] do
+    get 'checkout'
+  end
 end

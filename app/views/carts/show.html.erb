@@ -2,3 +2,4 @@
 <% @cart.line_items.each do |li| %>
   <p><%= li.product.name %></p>
 <% end %>
+<%= link_to "CHECKOUT", checkout_cart_path , class:'btn btn-primary'%>
