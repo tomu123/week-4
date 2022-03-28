@@ -1,7 +1,11 @@
 <div class="container">
   <div class="card my-4">
     <div class="card-header bg-info rounded">
-      <h1 class="text-light text-center">Products:</h1>
+      <h1 class="text-light text-center">Products:
+      <% if user_signed_in? && current_user.admin %>
+        <%= link_to 'CREATE PRODUCT', new_product_path, class:'btn btn-warning'%>
+      <% end %>
+      </h1>
     </div>
   </div>
   <div class="grid">
@@ -20,7 +24,7 @@
           </div>
           <div class="card-footer text-center">
           <% if user_signed_in? && current_user.admin %>
-            <%= link_to 'EDIT', p, class:'btn btn-primary'%>
+            <%= link_to 'EDIT', edit_product_path(p), class:'btn btn-primary'%>
             <%= link_to 'DELETE', p,method: :delete, class:'btn btn-danger'%>
           <% else %>
             <%= link_to "ADD TO CARD", add_to_cart_product_path(p), method: :post, class:'btn btn-primary'%>
@@ -29,5 +33,6 @@
         </div>
       </div>
     <% end %>
+
   </div>
 </div>

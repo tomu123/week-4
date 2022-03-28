@@ -1,22 +1,31 @@
 class ProductsController < ApplicationController
   before_action :set_cart
+  before_action :set_product, only: %i[edit destroy update]
 
   def index
     @products = Product.all
   end
 
-  def create; end
+  def create
+    @product = Product.create(product_params)
+    redirect_to products_url
+  end
 
-  def new; end
+  def new
+    @product = Product.new
+  end
 
   def edit; end
 
   def show; end
 
-  def update; end
+  def update
+    @product.update(product_params)
+    redirect_to products_url
+  end
 
   def destroy
-    Product.find(params[:id]).destroy
+    @product.destroy
     redirect_to products_url
   end
 
@@ -39,5 +48,9 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :description, :price, :stock)
+  end
+
+  def set_product
+    @product = Product.find(params[:id])
   end
 end
