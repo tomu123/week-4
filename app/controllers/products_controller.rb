@@ -1,10 +1,14 @@
 class ProductsController < ApplicationController
   before_action :set_cart
   before_action :set_product, only: %i[edit destroy update]
-  before_action :only_admin, except: %i[index show add_to_cart search]
+  before_action :only_admin, except: %i[index show add_to_cart]
 
   def index
-    @products = Product.all
+    @products = if params[:search_key].blank?
+                  Product.all
+                else
+                  Product.search_by_name(params[:search_key])
+                end
   end
 
   def create
@@ -35,15 +39,6 @@ class ProductsController < ApplicationController
       @line_item.update(quantity: @line_item.quantity + 1)
     else
       @line_item = @cart.line_items.create(product_id: params[:id], quantity: 1)
-    end
-  end
-
-  def search
-    if params[:search_key].blank?
-      redirect_to products_url
-    else
-      @products = Product.search_by_name(params[:search_key])
-      render :index
     end
   end
 
