@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   validates :name, :price, :stock, presence: { message: '%{attribute} must always be specified for %{model}' }
+  validates :stock, :price, numericality: true
   has_many :order_lines, dependent: :nullify
   has_many :orders, through: :order_lines
   has_many :customers, through: :orders
