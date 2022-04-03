@@ -1,0 +1,11 @@
+<tr>
+  <th scope="row"><%= line_item_counter + 1 %></th>
+  <td><%= line_item.product.name %></td>
+  <td><%= line_item.quantity %></td>
+  <td><%= line_item.total %></td>
+  <td class='text-center'>
+    <%= link_to line_item_path(line_item),method: :delete,class:'btn btn-danger' do%>
+      <i class="fas fa-backspace"></i>
+    <% end %>
+  </td>
+</tr>

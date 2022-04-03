@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       <% no = 0 %>
-      <% @orders.each do |o| %>
+      <% @orders.order(:date).each do |o| %>
         <!-- Button trigger modal -->
         <% no+=1 %>
         <tr data-bs-toggle="modal" data-bs-target="#<%= "order_#{no}" %>">
