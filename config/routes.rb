@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   resource :cart, only: [:show] do
     get 'checkout'
   end
+  resolve('Cart') { [:cart] }
   resources :orders
 end
