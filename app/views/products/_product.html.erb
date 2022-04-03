@@ -1,0 +1,22 @@
+<div class="g-col-4">
+  <div class="card my-3 bg-info">
+    <div class="card-header">
+      <h3><%= product.name %></h3>
+    </div>
+    <div class="card-body">
+      <h4 class="ms-5">Details:</h4>
+      <div class="d-flex justify-content-evenly">
+        <p class="text-center fs-4">Price: <%= product.price.to_f %></p>
+        <p class="text-center fs-4"><%= product.stock %> left</p>
+      </div>
+    </div>
+    <div class="card-footer text-center">
+    <% if user_signed_in? && current_user.admin %>
+      <%= link_to 'EDIT', edit_product_path(product), class:'btn btn-primary'%>
+      <%= link_to 'DELETE', product,method: :delete, class:'btn btn-danger'%>
+    <% else %>
+      <%= link_to "ADD TO CARD", add_to_cart_product_path(product), method: :post, class:'btn btn-primary'%>
+    <% end %>
+    </div>
+  </div>
+</div>
