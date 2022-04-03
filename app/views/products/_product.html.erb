@@ -18,7 +18,7 @@
       <%= form_with(url: product_line_items_path(product), method: :post) do |f| %>
         <div class="form-inputs m-3">
           <%= f.number_field :quantity, value: 1, min: 1, class:'text-center w-25 mx-3'%>
-          <%= f.submit "ADD TO CARD", class:'btn btn-primary'%>
+          <%= f.submit "ADD TO CARD", class:'btn btn-primary', data: { confirm: "Add #{product.name} to cart?" }%>
         </div>
       <% end %>
     <% end %>
