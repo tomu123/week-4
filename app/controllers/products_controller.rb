@@ -36,9 +36,9 @@ class ProductsController < ApplicationController
 
   def add_to_cart
     if @line_item = @cart.line_items.find_by(product_id: params[:id])
-      @line_item.update(quantity: @line_item.quantity + 1)
+      @line_item.update(quantity: @line_item.quantity + params[:quantity].to_i)
     else
-      @line_item = @cart.line_items.create(product_id: params[:id], quantity: 1)
+      @line_item = @cart.line_items.create(product_id: params[:id], quantity: params[:quantity])
     end
   end
 

@@ -15,7 +15,12 @@
       <%= link_to 'EDIT', edit_product_path(product), class:'btn btn-primary'%>
       <%= link_to 'DELETE', product,method: :delete, class:'btn btn-danger'%>
     <% else %>
-      <%= link_to "ADD TO CARD", add_to_cart_product_path(product), method: :post, class:'btn btn-primary'%>
+      <%= form_with(url: add_to_cart_product_path(product), method: :post) do |f| %>
+        <div class="form-inputs m-3">
+          <%= f.number_field :quantity, value: 1, min: 1, class:'text-center w-25 mx-3'%>
+          <%= f.submit "ADD TO CARD", class:'btn btn-primary'%>
+        </div>
+      <% end %>
     <% end %>
     </div>
   </div>
