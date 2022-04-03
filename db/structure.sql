@@ -67,6 +67,38 @@ ALTER SEQUENCE public.carts_id_seq OWNED BY public.carts.id;
 
 
 --
+-- Name: likes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.likes (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: likes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.likes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: likes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.likes_id_seq OWNED BY public.likes.id;
+
+
+--
 -- Name: line_items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -258,6 +290,13 @@ ALTER TABLE ONLY public.carts ALTER COLUMN id SET DEFAULT nextval('public.carts_
 
 
 --
+-- Name: likes id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.likes ALTER COLUMN id SET DEFAULT nextval('public.likes_id_seq'::regclass);
+
+
+--
 -- Name: line_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -309,6 +348,14 @@ ALTER TABLE ONLY public.carts
 
 
 --
+-- Name: likes likes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.likes
+    ADD CONSTRAINT likes_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: line_items line_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -354,6 +401,27 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_likes_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_likes_on_product_id ON public.likes USING btree (product_id);
+
+
+--
+-- Name: index_likes_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_likes_on_user_id ON public.likes USING btree (user_id);
+
+
+--
+-- Name: index_likes_on_user_id_and_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_likes_on_user_id_and_product_id ON public.likes USING btree (user_id, product_id);
 
 
 --
@@ -421,6 +489,14 @@ ALTER TABLE ONLY public.line_items
 
 
 --
+-- Name: likes fk_rails_1e09b5dabf; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.likes
+    ADD CONSTRAINT fk_rails_1e09b5dabf FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: order_lines fk_rails_83e960fa54; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -445,6 +521,14 @@ ALTER TABLE ONLY public.order_lines
 
 
 --
+-- Name: likes fk_rails_f7ed05ee50; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.likes
+    ADD CONSTRAINT fk_rails_f7ed05ee50 FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
 -- Name: orders fk_rails_f868b47f6a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -466,6 +550,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220327233140'),
 ('20220327233537'),
 ('20220328003926'),
-('20220328004801');
+('20220328004801'),
+('20220403230831');
 
 
