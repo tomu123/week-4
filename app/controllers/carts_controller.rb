@@ -5,20 +5,26 @@ class CartsController < ApplicationController
   def show; end
 
   def checkout
-    @order = Order.create!(date: Time.now, user: current_user)
-    @cart.line_items.each do |li|
-      order_line = @order.order_lines.build(product: li.product, quantity: li.quantity)
-      next if order_line.save
-
-      flash[:alert] = order_line.errors.full_messages
-      li.destroy
-      @order.destroy
-      redirect_to cart_path
-      return
+    unless @cart.line_items.empty?
+      flash[:alert] = []
+      order_lines = []
+      order = Order.create!(date: Time.now, user: current_user)
+      @cart.line_items.each do |li|
+        order_lines << order.order_lines.build(product: li.product, quantity: li.quantity)
+        flash[:alert].push(*order_lines.last.errors.full_messages) unless order_lines.last.valid?
+      end
+      if flash[:alert].empty?
+        order_lines.each(&:save!)
+        @cart.destroy
+        flash[:notice] = 'Your purchase was successful'
+        redirect_to products_url and return
+      else
+        order.destroy
+        redirect_to cart_path and return
+      end
     end
-    @order.destroy if @order.order_lines.empty?
-    @cart.destroy
-    redirect_to products_url
+    flash.now[:alert] = 'Your Cart is empty!'
+    render :show
   end
 
   private
