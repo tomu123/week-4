@@ -3,13 +3,12 @@ Rails.application.routes.draw do
   devise_for :users
   root 'products#index'
   resources :products do
-    member do
-      post 'add_to_cart'
-    end
+    resources :line_items, only: %i[create]
   end
   resource :cart, only: [:show] do
     get 'checkout'
   end
+  resources :line_items, only: %i[destroy]
   resolve('Cart') { [:cart] }
   resources :orders
 end
