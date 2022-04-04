@@ -1,0 +1,17 @@
+<div class="card my-4 bg-primary">
+  <div class="card-header d-flex justify-content-between">
+    <h3><%= comment.user.name %>  <%= comment.date %></h3>
+    <div class="text-center bg-light"><%= comment.rating %></div>
+  </div>
+  <div class="card-body d-flex justify-content-center">
+    <div class="bg-light w-75">
+      <p class="text-center fs-4"><%= comment.description %></p>
+    </div>
+  </div>
+  <div class="card-footer text-center">
+  <% if user_signed_in? && comment.user == current_user %>
+    <%= link_to 'EDIT', edit_comment_path(comment), class:'btn btn-primary'%>
+    <%= link_to 'DELETE', comment ,method: :delete, class:'btn btn-danger'%>
+  <% end %>
+  </div>
+</div>

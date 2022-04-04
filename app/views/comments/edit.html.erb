@@ -1,0 +1,19 @@
+<div class="container">
+  <h2>Edit Comment</h2>
+
+  <%= simple_form_for( @comment, wrapper: :floating_labels_form,
+    wrapper_mappings: {
+      select:        :floating_labels_select
+    },defaults: { wrapper_html: { class: "form-floating mb-3" },placeholder:' ' }) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :description %>
+      <%= f.input :rating %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, "Update" ,class:'btn btn-primary'%>
+    </div>
+  <% end %>
+</div>
