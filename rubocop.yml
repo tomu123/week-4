@@ -1,0 +1,23 @@
+Rails:
+  Enabled: true
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/**'
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+    - 'test/**/**'
+Metrics/MethodLength:
+  Max: 15
+AllCops:
+  Exclude:
+    - 'db/**/**'
+    - 'docs/**/**'
+    - 'specific-views-images/**/**'
+    - 'specific-views-pdf/**/**'
+    - 'vendor/**/**'
+    - 'bin/**/**'
+    - 'tmp/**/**'
+    - 'node_modules/**/**'
+    - 'config/**/**'
+    - 'Guardfile'
