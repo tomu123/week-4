@@ -1,2 +1,50 @@
-<h1>Orders#show</h1>
-<p>Find me in app/views/orders/show.html.erb</p>
+<div class="container">
+  <div class="card my-4">
+    <div class="card-header bg-warning rounded">
+      <h1 class="text-light text-center">Order:</h1>
+    </div>
+  </div>
+  <table class="table table-bordered table-warning table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product</th>
+        <th scope="col">Qty</th>
+        <th scope="col">Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% no1 = 0 %>
+      <% @order.order_lines.each do |ol| %>
+        <!-- Button trigger modal -->
+        <% no1+=1 %>
+        <tr>
+          <th scope="row"><%= no1 %></th>
+          <td><%= ol.product.name %></td>
+          <td><%= ol.quantity %></td>
+          <td><%= ol.total %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="container">
+    <h3>New Comment</h3>
+
+    <%= simple_form_for( [@order,Comment.new], wrapper: :floating_labels_form,
+      wrapper_mappings: {
+        select:        :floating_labels_select
+      },defaults: { wrapper_html: { class: "form-floating mb-3" },placeholder:' ' }) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <%= f.input :description %>
+        <%= f.input :rating %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Comment" ,class:'btn btn-primary'%>
+      </div>
+    <% end %>
+  </div>
+  <%= render @order.comments %>
+</div>
