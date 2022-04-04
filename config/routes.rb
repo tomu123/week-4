@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'products#index'
   resources :products do
     resources :line_items, only: %i[create]
+    resource :like, only: %i[create destroy]
   end
   resource :cart, only: [:show] do
     get 'checkout'

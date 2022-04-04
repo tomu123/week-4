@@ -6,8 +6,16 @@ class Product < ApplicationRecord
   has_many :orders, through: :order_lines
   has_many :customers, through: :orders
   has_many :likes
-  scope :sort_by_price, ->(desc) { desc ? unscoped.order(price: :desc) : unscoped.order(:price) }
-  scope :sort_by_sales, -> { unscoped.joins(:order_lines).group(:id).order('sum(order_lines.quantity) desc') }
+  scope :sort_by_price, ->(desc) { desc ? order(price: :desc) : order(:price) }
+  scope :sort_by_name, ->(desc) { desc ? order(name: :desc) : order(:name) }
+  scope :sort_by_popularity, lambda { |desc|
+                               desc ? left_outer_joins(:likes).group('products.id').order('COUNT(likes.id) DESC') : left_outer_joins(:likes).group('products.id').order('COUNT(likes.id)')
+                             }
+  scope :sort_by_sales, -> { joins(:order_lines).group(:id).order('sum(order_lines.quantity) desc') }
   scope :search_by_name, ->(search_key) { where('name ~* ?', "^.*#{search_key}.*$") }
-  default_scope { order(:name) }
+  default_scope { sort_by_name(false) }
+
+  def liked?(user)
+    likes.find_by(user: user).present?
+  end
 end

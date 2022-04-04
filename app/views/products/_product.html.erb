@@ -22,6 +22,13 @@
         </div>
       <% end %>
     <% end %>
+    <% if user_signed_in? && !current_user.admin %>
+      <% if product.liked?(current_user) %>
+        <%= link_to product_like_path(product),method: :delete do%><i class="fas fa-heart" style="color:red;font-size:2em;"></i><% end %>
+      <% else %>
+        <%= link_to product_like_path(product),method: :post do%><i class="fas fa-heart" style="color:white;font-size:2em;"></i><% end %>
+      <% end %>
+    <% end %>
     </div>
   </div>
 </div>
