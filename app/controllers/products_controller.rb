@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[edit destroy update]
+  before_action :set_product, only: %i[edit destroy update show]
   before_action :only_admin, except: %i[index show]
 
   def index
@@ -26,7 +26,7 @@ class ProductsController < ApplicationController
 
   def update
     @product.update(product_params)
-    redirect_to products_url
+    redirect_to product_url(@product)
   end
 
   def destroy

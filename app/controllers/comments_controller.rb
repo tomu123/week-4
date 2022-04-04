@@ -1,12 +1,20 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_comment, :belong_to_user!, only: %i[edit destroy update]
-  after_action :redirect_to_commentable!, only: %i[edit destroy update]
 
   def create
     params[:comment][:user_id] = current_user.id
     params[:comment][:date] = Time.now
-    Comment.create(comment_params)
+    @comment = Comment.new(comment_params)
+    @comment.commentable_type = params[:commentable_type]
+    @comment.commentable_id = params[:product_id] if params[:commentable_type] == 'Product'
+    @comment.commentable_id = params[:order_id] if params[:commentable_type] == 'Order'
+    if @comment.save
+      flash[:notice] = 'Your comment has been published'
+    else
+      flash[:alert] = @comment.errors.full_messages
+    end
+    redirect_to @comment.commentable and return
   end
 
   def edit; end
@@ -14,10 +22,12 @@ class CommentsController < ApplicationController
   def update
     params[:comment][:date] = Time.now
     @comment.update(comment_params)
+    redirect_to @comment.commentable
   end
 
   def destroy
     @comment.destroy
+    redirect_to @comment.commentable
   end
 
   private
@@ -31,10 +41,6 @@ class CommentsController < ApplicationController
   end
 
   def belong_to_user!
-    redirect_to_commentable! if @comment.user != current_user
-  end
-
-  def redirect_to_commentable!
-    redirect_to @comment.commentable
+    redirect_to @comment.commentable if @comment.user != current_user
   end
 end

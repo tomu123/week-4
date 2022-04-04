@@ -1,2 +1,47 @@
-<h1>Products#show</h1>
-<p>Find me in app/views/products/show.html.erb</p>
+<div class="container">
+  <div class="card my-4 bg-warning">
+    <div class="card-header">
+      <h3><%= @product.name %></h3>
+    </div>
+    <div class="card-body">
+      <h4 class="ms-5">Details:</h4>
+      <div class="d-flex justify-content-evenly">
+        <p class="text-center fs-4">Price: <%= @product.price.to_f %></p>
+        <p class="text-center fs-4"><%= @product.stock %> left</p>
+      </div>
+    </div>
+    <div class="card-footer text-center">
+    <% if user_signed_in? && current_user.admin %>
+      <%= link_to 'EDIT', edit_product_path(@product), class:'btn btn-primary'%>
+      <%= link_to 'DELETE', @product,method: :delete, class:'btn btn-danger'%>
+    <% else %>
+      <%= form_with(url: product_line_items_path(@product), method: :post) do |f| %>
+        <div class="form-inputs m-3">
+          <%= f.number_field :quantity, value: 1, min: 1, class:'text-center w-25 mx-3'%>
+          <%= f.submit "ADD TO CARD", class:'btn btn-primary', data: { confirm: "Add #{@product.name} to cart?" }%>
+        </div>
+      <% end %>
+    <% end %>
+    </div>
+  </div>
+  <div class="container">
+    <h3>New Comment</h3>
+
+    <%= simple_form_for( [@product,Comment.new], wrapper: :floating_labels_form,
+      wrapper_mappings: {
+        select:        :floating_labels_select
+      },defaults: { wrapper_html: { class: "form-floating mb-3" },placeholder:' ' }) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <%= f.input :description %>
+        <%= f.input :rating %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Comment" ,class:'btn btn-primary'%>
+      </div>
+    <% end %>
+  </div>
+  <%= render @product.comments %>
+</div>

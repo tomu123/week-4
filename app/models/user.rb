@@ -10,4 +10,8 @@ class User < ApplicationRecord
   has_many :products, through: :order_lines
   has_many :likes
   scope :orders_between_dates, ->(id, date_range) { find(id).orders.where(date: date_range) }
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 end
