@@ -15,6 +15,12 @@
         </div>
       <% end %>
     </div>
+    <div class="d-flex justify-content-around">
+      <%= link_to 'Most Popular', products_path(order_by_popular:true) , class:'btn btn-warning'%>
+      <%= link_to 'Least Popular', products_path(order_by_popular:false) , class:'btn btn-warning'%>
+      <%= link_to 'Order by Name ASC', products_path(order_by_name:false) , class:'btn btn-warning'%>
+      <%= link_to 'Order by Name DESC', products_path(order_by_name:true) , class:'btn btn-warning'%>
+    </div>
   </div>
   <div class="grid">
     <%= render @products %>
