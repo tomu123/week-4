@@ -8,6 +8,8 @@ class Product < ApplicationRecord
   has_many :customers, through: :orders
   has_many :likes
   has_many :comments, as: :commentable
+  has_many :product_tags
+  has_many :tags, through: :product_tags
 
   scope :sort_by_price, ->(desc) { desc ? order(price: :desc) : order(:price) }
   scope :sort_by_name, ->(desc) { desc ? order(name: :desc) : order(:name) }
