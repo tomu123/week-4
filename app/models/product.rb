@@ -2,10 +2,13 @@ class Product < ApplicationRecord
   validates :name, :price, :stock, presence: { message: '%{attribute} must always be specified for %{model}' }
   validates :price, numericality: true
   validates :stock, numericality: { only_integer: true }
+
   has_many :order_lines, dependent: :nullify
   has_many :orders, through: :order_lines
   has_many :customers, through: :orders
   has_many :likes
+  has_many :comments, as: :commentable
+
   scope :sort_by_price, ->(desc) { desc ? order(price: :desc) : order(:price) }
   scope :sort_by_name, ->(desc) { desc ? order(name: :desc) : order(:name) }
   scope :sort_by_popularity, lambda { |desc|

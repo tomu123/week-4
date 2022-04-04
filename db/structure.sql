@@ -67,6 +67,42 @@ ALTER SEQUENCE public.carts_id_seq OWNED BY public.carts.id;
 
 
 --
+-- Name: comments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comments (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    date date,
+    description character varying,
+    rating integer,
+    commentable_type character varying NOT NULL,
+    commentable_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
+
+
+--
 -- Name: likes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -290,6 +326,13 @@ ALTER TABLE ONLY public.carts ALTER COLUMN id SET DEFAULT nextval('public.carts_
 
 
 --
+-- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
+
+
+--
 -- Name: likes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -348,6 +391,14 @@ ALTER TABLE ONLY public.carts
 
 
 --
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: likes likes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -401,6 +452,20 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_comments_on_commentable; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comments_on_commentable ON public.comments USING btree (commentable_type, commentable_id);
+
+
+--
+-- Name: index_comments_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comments_on_user_id ON public.comments USING btree (user_id);
 
 
 --
@@ -481,6 +546,14 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING bt
 
 
 --
+-- Name: comments fk_rails_03de2dc08c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT fk_rails_03de2dc08c FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: line_items fk_rails_11e15d5c6b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -551,6 +624,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220327233537'),
 ('20220328003926'),
 ('20220328004801'),
-('20220403230831');
+('20220403230831'),
+('20220404045355');
 
 
