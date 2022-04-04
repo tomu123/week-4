@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Product < ApplicationRecord
   validates :name, :price, :stock, presence: { message: '%{attribute} must always be specified for %{model}' }
   validates :price, numericality: true

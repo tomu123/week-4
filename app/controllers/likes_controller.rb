@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LikesController < ApplicationController
   def create
     like = Like.create(user: current_user, product_id: params[:product_id])

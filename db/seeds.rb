@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -21,7 +23,8 @@ end
 products = Product.all
 users = User.all
 10.times do
-  order = Order.create!(date: Faker::Date.in_date_period, user: users.sample, order_status: %w[pending completed cancelled].sample)
+  order = Order.create!(date: Faker::Date.in_date_period, user: users.sample,
+                        order_status: %w[pending completed cancelled].sample)
   (1..rand(1..5)).each do
     product = products.sample
     product = products.sample until product.stock.positive?

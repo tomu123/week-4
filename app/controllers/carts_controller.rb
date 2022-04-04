@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CartsController < ApplicationController
   before_action :set_cart
   before_action :authenticate_user!, only: [:checkout]

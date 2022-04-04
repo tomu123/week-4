@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrderLine < ApplicationRecord
   validates :order, :product, :quantity, presence: true
   validate :validate_stock, on: :create
@@ -25,7 +27,7 @@ class OrderLine < ApplicationRecord
 
   def calculate_order_total
     reload_order
-    sub_totals = order.order_lines.to_a.map { |ol| ol.total }
+    sub_totals = order.order_lines.to_a.map(&:total)
     new_total = sub_totals.reduce(:+)
     order.update(total: new_total)
   end

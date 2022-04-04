@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateOrderLines < ActiveRecord::Migration[6.1]
   def change
     create_table :order_lines do |t|

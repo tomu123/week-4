@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProductsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :set_product, only: %i[edit destroy update show]
@@ -9,7 +11,9 @@ class ProductsController < ApplicationController
     unless params[:order_by_popular].blank?
       @products = @products.unscope(:order).sort_by_popularity(params[:order_by_popular] == 'true').sort_by_name(false)
     end
-    @products = @products.unscope(:order).sort_by_name(params[:order_by_name] == 'true') unless params[:order_by_name].blank?
+    unless params[:order_by_name].blank?
+      @products = @products.unscope(:order).sort_by_name(params[:order_by_name] == 'true')
+    end
     @products = @products.joins(:tags).where('tags.id = ?', params[:tag]) unless params[:tag].blank?
   end
 

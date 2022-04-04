@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProductTagsController < ApplicationController
   def create
     product_tag = ProductTag.new(tag_id: params[:product_tag][:tag], product_id: params[:product_id])
