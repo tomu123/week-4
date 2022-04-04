@@ -1,5 +1,5 @@
 class OrderLine < ApplicationRecord
-  validates :quantity, presence: true
+  validates :order, :product, :quantity, presence: true
   validate :validate_stock, on: :create
 
   before_create :set_current_price, :calculate_total
