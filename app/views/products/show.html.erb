@@ -2,6 +2,15 @@
   <div class="card my-4 bg-warning">
     <div class="card-header">
       <h3><%= @product.name %></h3>
+      Tags:
+      <% @product.product_tags.each do |product_tag|%>
+        <span class='btn btn-danger mx-1'>
+          <%= product_tag.tag.name %>
+          <%= link_to product_tag_path(product_tag), data: { confirm: "Estás seguro de desear eliminar este tag?" }, method: :delete do%>
+            <i class="fas fa-backspace text-light"></i>
+          <% end %>
+        </span>
+      <% end %>
     </div>
     <div class="card-body">
       <h4 class="ms-5">Details:</h4>
@@ -12,8 +21,16 @@
     </div>
     <div class="card-footer text-center">
     <% if user_signed_in? && current_user.admin %>
-      <%= link_to 'EDIT', edit_product_path(@product), class:'btn btn-primary'%>
-      <%= link_to 'DELETE', @product,method: :delete, class:'btn btn-danger'%>
+      <%= link_to 'EDIT', edit_product_path(@product), class:'btn btn-primary mx-1'%>
+      <%= link_to 'DELETE', @product,method: :delete, class:'btn btn-danger mx-1'%>
+      <div class="w-25 d-flex justify-content-center mx-auto">
+        <%= simple_form_for([@product,ProductTag.new]) do |f| %>
+          <div class="form-inputs m-3">
+            <%= f.input :tag, collection: Tag.all, input_html: { class:'mx-auto my-2' } %>
+            <%= f.submit "ADD TAG", class:'btn btn-primary', data: { confirm: "Add a tag to #{@product.name}?" }%>
+          </div>
+        <% end %>
+      </div>
     <% else %>
       <%= form_with(url: product_line_items_path(@product), method: :post) do |f| %>
         <div class="form-inputs m-3">

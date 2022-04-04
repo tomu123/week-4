@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :line_items, only: %i[create]
     resource :like, only: %i[create destroy]
     resources :comments, only: %i[create], defaults: { commentable_type: 'Product' }
+    resources :product_tags, only: %i[create]
   end
   resource :cart, only: [:show] do
     get 'checkout'
@@ -17,4 +18,5 @@ Rails.application.routes.draw do
   end
   resources :comments, only: %i[edit update destroy]
   resources :tags, except: [:show]
+  resources :product_tags, only: %i[destroy]
 end
