@@ -16,4 +16,5 @@ Rails.application.routes.draw do
     resources :comments, only: %i[create], defaults: { commentable_type: 'Order' }
   end
   resources :comments, only: %i[edit update destroy]
+  resources :tags, except: [:show]
 end
