@@ -10,6 +10,7 @@ class ProductsController < ApplicationController
       @products = @products.unscope(:order).sort_by_popularity(params[:order_by_popular] == 'true').sort_by_name(false)
     end
     @products = @products.unscope(:order).sort_by_name(params[:order_by_name] == 'true') unless params[:order_by_name].blank?
+    @products = @products.joins(:tags).where('tags.id = ?', params[:tag]) unless params[:tag].blank?
   end
 
   def create
