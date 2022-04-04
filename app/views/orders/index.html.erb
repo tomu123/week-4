@@ -8,6 +8,9 @@
     <thead>
       <tr>
         <th scope="col">#</th>
+        <% if current_user.admin %>
+          <th scope="col">Customer</th>
+        <% end %>
         <th scope="col">Date</th>
         <th scope="col">Status</th>
         <th scope="col">Total</th>
@@ -20,6 +23,9 @@
         <% no+=1 %>
         <tr data-bs-toggle="modal" data-bs-target="#<%= "order_#{no}" %>">
           <th scope="row"><%= no %></th>
+          <% if current_user.admin %>
+            <th scope="col"><%= o.user.name %></th>
+          <% end %>
           <td><%= o.date %></td>
           <td><%= o.order_status %></td>
           <td>$<%= o.total.to_f%></td>
@@ -39,7 +45,7 @@
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="width:50vw;max-width:50vw">
         <div class="modal-content" >
           <div class="modal-header">
-            <h5 class="modal-title" id="<%= "order_#{no}" %>Label"><%= o.date %></h5>
+            <h5 class="modal-title" id="<%= "order_#{no}" %>Label">   <%= o.user.name %>   <%= o.date %></h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">

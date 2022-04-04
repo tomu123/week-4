@@ -1,2 +1,19 @@
-<h1>Tags#new</h1>
-<p>Find me in app/views/tags/new.html.erb</p>
+<div class="container">
+  <h2>New Tag</h2>
+
+  <%= simple_form_for( @tag, wrapper: :floating_labels_form,
+    wrapper_mappings: {
+      select:        :floating_labels_select
+    },defaults: { wrapper_html: { class: "form-floating mb-3" },placeholder:' ' }) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :name %>
+      <%= f.input :description %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, "Create" ,class:'btn btn-primary'%>
+    </div>
+  <% end %>
+</div>

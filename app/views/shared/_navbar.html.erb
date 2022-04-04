@@ -9,6 +9,7 @@
           <%= link_to "Order History", orders_path, class: "nav-link px-2 link-secondary"%>
         </li>
       <% end %>
+      <li><%= link_to "Tags", tags_path, class: "nav-link px-2 link-secondary" %></li>
     </ul>
     <div class="col-md-3 text-end">
       <% if user_signed_in? %>

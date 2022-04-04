@@ -1,0 +1,19 @@
+<div class="g-col-4">
+  <div class="card my-3 bg-success">
+    <div class="card-header text-light">
+      <h3><%= tag.name %></h3>
+    </div>
+    <div class="card-body">
+      <h4 class="ms-5">Description:</h4>
+      <div class="d-flex justify-content-evenly">
+        <p class="text-center fs-4"><%= tag.description %></p>
+      </div>
+    </div>
+    <div class="card-footer text-center">
+    <% if user_signed_in? && current_user.admin %>
+      <%= link_to 'EDIT', edit_tag_path(tag), class:'btn btn-primary'%>
+      <%= link_to 'DELETE', tag,method: :delete, class:'btn btn-danger'%>
+    <% end %>
+    </div>
+  </div>
+</div>

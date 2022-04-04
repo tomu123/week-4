@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!, except: %i[index show]
   before_action :set_product, only: %i[edit destroy update show]
   before_action :only_admin, except: %i[index show]
 
@@ -13,7 +14,11 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-    render :new unless @product.save
+    if @product.save
+      redirect_to products_path
+    else
+      render :new
+    end
   end
 
   def new

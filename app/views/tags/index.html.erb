@@ -1,2 +1,14 @@
-<h1>Tags#index</h1>
-<p>Find me in app/views/tags/index.html.erb</p>
+<div class="container">
+  <div class="card my-4">
+    <div class="card-header bg-success rounded">
+      <h1 class="text-light text-center">Tags:
+      <% if user_signed_in? && current_user.admin %>
+        <%= link_to 'CREATE TAG', new_tag_path, class:'btn btn-warning'%>
+      <% end %>
+      </h1>
+    </div>
+  </div>
+  <div class="grid">
+    <%= render @tags %>
+  </div>
+</div>
