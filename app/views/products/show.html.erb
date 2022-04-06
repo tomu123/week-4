@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="card-footer text-center">
-    <% if user_signed_in? && current_user.admin %>
+    <% if user_signed_in? && current_user.admin_role? %>
       <%= link_to 'EDIT', edit_product_path(@product), class:'btn btn-primary mx-1'%>
       <%= link_to 'DELETE', @product,method: :delete, class:'btn btn-danger mx-1'%>
       <div class="w-25 d-flex justify-content-center mx-auto">

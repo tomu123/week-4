@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   before_action :set_order, :belong_to_user!, only: %i[edit destroy update show]
 
   def index
-    @orders = current_user.admin ? Order.all : current_user.orders
+    @orders = current_user.admin_role? ? Order.all : current_user.orders
   end
 
   def create; end
@@ -27,6 +27,6 @@ class OrdersController < ApplicationController
   end
 
   def belong_to_user!
-    redirect_to products_path if (@order.user != current_user) && !current_user.admin
+    redirect_to products_path if (@order.user != current_user) && !current_user.admin_role?
   end
 end

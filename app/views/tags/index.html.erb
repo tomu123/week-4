@@ -2,7 +2,7 @@
   <div class="card my-4">
     <div class="card-header bg-success rounded">
       <h1 class="text-light text-center">Tags:
-      <% if user_signed_in? && current_user.admin %>
+      <% if user_signed_in? && current_user.admin_role? %>
         <%= link_to 'CREATE TAG', new_tag_path, class:'btn btn-warning'%>
       <% end %>
       </h1>

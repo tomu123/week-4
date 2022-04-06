@@ -8,7 +8,7 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <% if current_user.admin %>
+        <% if current_user.admin_role? %>
           <th scope="col">Customer</th>
         <% end %>
         <th scope="col">Date</th>
@@ -23,7 +23,7 @@
         <% no+=1 %>
         <tr data-bs-toggle="modal" data-bs-target="#<%= "order_#{no}" %>">
           <th scope="row"><%= no %></th>
-          <% if current_user.admin %>
+          <% if current_user.admin_role? %>
             <th scope="col"><%= o.user.name %></th>
           <% end %>
           <td><%= o.date %></td>

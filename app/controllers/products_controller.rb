@@ -55,6 +55,6 @@ class ProductsController < ApplicationController
   end
 
   def only_admin
-    redirect_to products_path unless user_signed_in? && current_user.admin
+    redirect_to products_path unless user_signed_in? && current_user.admin_role?
   end
 end

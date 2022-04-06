@@ -6,6 +6,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  enum user_role: { customer: 'customer', admin: 'admin', support: 'support' }, _suffix: 'role',
+       _default: 'customer'
+
   validates :first_name, :last_name, :address, presence: true
   has_many :orders
   has_many :order_lines, through: :orders

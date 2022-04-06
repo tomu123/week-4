@@ -20,6 +20,17 @@ CREATE TYPE public.order_status AS ENUM (
 );
 
 
+--
+-- Name: user_role; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.user_role AS ENUM (
+    'customer',
+    'admin',
+    'support'
+);
+
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -359,7 +370,7 @@ CREATE TABLE public.users (
     first_name character varying,
     last_name character varying,
     address character varying,
-    admin boolean
+    user_role public.user_role DEFAULT 'customer'::public.user_role
 );
 
 
@@ -654,6 +665,13 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING bt
 
 
 --
+-- Name: index_users_on_user_role; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_user_role ON public.users USING btree (user_role);
+
+
+--
 -- Name: comments fk_rails_03de2dc08c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -751,6 +769,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220403230831'),
 ('20220404045355'),
 ('20220404083341'),
-('20220404083826');
+('20220404083826'),
+('20220406201718'),
+('20220406203518');
 
 

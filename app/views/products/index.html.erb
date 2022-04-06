@@ -2,7 +2,7 @@
   <div class="card my-4">
     <div class="card-header bg-info rounded">
       <h1 class="text-light text-center">Products:
-      <% if user_signed_in? && current_user.admin %>
+      <% if user_signed_in? && current_user.admin_role? %>
         <%= link_to 'CREATE PRODUCT', new_product_path, class:'btn btn-warning'%>
       <% end %>
       </h1>
