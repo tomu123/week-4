@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
   resources :line_items, only: %i[destroy]
   resolve('Cart') { [:cart] }
-  resources :orders do
+  resources :orders, only: %i[index show] do
     resources :comments, only: %i[create], defaults: { commentable_type: 'Order' }
   end
   resources :comments, only: %i[edit update destroy]
