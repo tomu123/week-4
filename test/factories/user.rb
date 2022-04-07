@@ -6,5 +6,6 @@ FactoryBot.define do
     address {Faker::Address.full_address}
     email {Faker::Internet.email}
     password {'123456'}
+    user_role { 'customer' }
   end
 end

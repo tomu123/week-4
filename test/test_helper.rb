@@ -15,7 +15,6 @@ module ActiveSupport
     # Add more helper methods to be used by all tests here...
     # Add FactoryBot methods
     include FactoryBot::Syntax::Methods
-    FactoryBot.find_definitions
 
     # Add Devise test helpers for controller and integration tests
     include Devise::Test::IntegrationHelpers
