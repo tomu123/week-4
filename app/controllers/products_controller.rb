@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProductsController < ApplicationController
+  respond_to :html
+
   before_action :authenticate_user!, except: %i[index show]
   before_action :set_product, only: %i[edit destroy update show]
   before_action :only_admin, except: %i[index show edit update]
@@ -20,11 +22,8 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-    if @product.save
-      redirect_to product_url(@product)
-    else
-      render :new
-    end
+    flash[:notice] = "Product was successfully created." if @product.save
+    respond_with @product
   end
 
   def new
@@ -36,8 +35,8 @@ class ProductsController < ApplicationController
   def show; end
 
   def update
-    @product.update(product_params)
-    redirect_to product_url(@product)
+    flash[:notice] = "Product was successfully updated." if @product.update(product_params)
+    respond_with @product
   end
 
   def destroy
