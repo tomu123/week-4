@@ -9,15 +9,8 @@ class ProductsController < ApplicationController
   before_action :admin_or_support, only: %i[edit update]
 
   def index
-    @products = Product.all
-    @products = @products.search_by_name(params[:search_key]) unless params[:search_key].blank?
-    unless params[:order_by_popular].blank?
-      @products = @products.unscope(:order).sort_by_popularity(params[:order_by_popular] == 'true').sort_by_name(false)
-    end
-    unless params[:order_by_name].blank?
-      @products = @products.unscope(:order).sort_by_name(params[:order_by_name] == 'true')
-    end
-    @products = @products.joins(:tags).where('tags.id = ?', params[:tag]) unless params[:tag].blank?
+    @products = FilteredProductsQuery.new(params).call
+    @products = OrderedProductsQuery.new(params, @products).call
   end
 
   def create
