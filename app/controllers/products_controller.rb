@@ -9,8 +9,7 @@ class ProductsController < ApplicationController
   before_action :admin_or_support, only: %i[edit update]
 
   def index
-    @products = FilteredProductsQuery.new(params).call
-    @products = OrderedProductsQuery.new(params, @products).call
+    @products = Product::Search.call(params)
   end
 
   def create
