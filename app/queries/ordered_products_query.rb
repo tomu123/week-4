@@ -10,7 +10,8 @@ class OrderedProductsQuery
     @params.each do |key, value|
       @relation = @relation.public_send(key, direction(value)) if SORT_OPTIONS.include?(key)
     end
-    @relation.sort_by_name(:asc)
+    @relation = @relation.sort_by_name(:asc) unless @params.include?('sort_by_name')
+    @relation
   end
 
   private
