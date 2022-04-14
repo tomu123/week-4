@@ -68,3 +68,9 @@ gem 'devise', '~> 4.8'
 
 # Adds support to easily create and design forms
 gem 'simple_form', '~> 5.1'
+
+# Representable maps objects to documents (rendering) and documents to objects (parsing) using representers.
+gem 'representable', '~> 3.1'
+
+# Representable Dependency for JSON documents
+gem 'multi_json', '~> 1.15'
