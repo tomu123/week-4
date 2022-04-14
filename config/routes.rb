@@ -21,4 +21,40 @@ Rails.application.routes.draw do
   resources :comments, only: %i[edit update destroy]
   resources :tags, except: [:show]
   resources :product_tags, only: %i[destroy]
+
+  # api routes
+
+  namespace :api do
+    namespace :v1 do
+      # public
+
+      resources :products, only: %i[show index]
+      resource :cart, only: [:show] do
+        resources :line_items, except: %i[edit new index], shallow: true
+      end
+
+      # admin
+      namespace :admin do
+        resources :products, only: %i[create update destroy]
+        resources :users, only: [] do
+          resources :orders, only: [:index]
+        end
+        resources :orders, only: [:show]
+      end
+
+      # support
+
+      namespace :support do
+        resources :products, only: [:update]
+      end
+
+      # customer
+      namespace :customer do
+        resources :products, only: [] do
+          resource :like, only: %i[create destroy]
+        end
+        resources :orders, only: %i[show]
+      end
+    end
+  end
 end
