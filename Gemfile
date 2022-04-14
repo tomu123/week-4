@@ -74,3 +74,5 @@ gem 'representable', '~> 3.1'
 
 # Representable Dependency for JSON documents
 gem 'multi_json', '~> 1.15'
+
+gem "pagy", "~> 5.10"
