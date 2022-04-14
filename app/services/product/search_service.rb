@@ -8,6 +8,7 @@ class Product::SearchService < ApplicationService
 
   def call
     products = FilteredProductsQuery.new(params).call
-    OrderedProductsQuery.new(params, products).call
+    products = OrderedProductsQuery.new(params, products).call
+    PaginatedProductsQuery.new(params, products).call
   end
 end
