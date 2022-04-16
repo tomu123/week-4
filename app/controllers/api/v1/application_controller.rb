@@ -1,4 +1,9 @@
 # frozen_string_literal: true
 
-class Api::V1::ApplicationController < ActionController::API
+module Api
+  module V1
+    class ApplicationController < ActionController::API
+      include ErrorHandler
+    end
+  end
 end
