@@ -17,6 +17,8 @@ class OrderedProductsQuery
   private
 
   def direction(value)
-    value == 'asc' ? :asc : :desc
+    raise ArgumentError, "#{value}, it's not a valid sorting option(asc,desc)" unless %w[asc desc].include?(value)
+
+    value.to_sym
   end
 end
