@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_many :orders
   has_many :order_lines, through: :orders
   has_many :products, through: :order_lines
-  has_many :likes
+  has_many :likes, dependent: :destroy
   scope :orders_between_dates, ->(id, date_range) { find(id).orders.where(date: date_range) }
 
   def name

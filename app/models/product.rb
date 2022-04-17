@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
-
   has_many :order_lines, dependent: :nullify
   has_many :orders, through: :order_lines
   has_many :customers, through: :orders
-  has_many :likes
+  has_many :likes, dependent: :destroy
   has_many :comments, as: :commentable
   has_many :product_tags
   has_many :tags, through: :product_tags
