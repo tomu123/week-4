@@ -8,7 +8,6 @@ class Like::DestroyService < ApplicationService
   def initialize(params = {})
     super()
     @params = params
-    @result = {}
   end
 
   def call

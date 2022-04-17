@@ -10,7 +10,7 @@ module Api
       after_action { pagy_headers_merge(@pagy) if @pagy }
 
       def index
-        @pagy, @products = Product::SearchService.call(params)
+        @pagy, @products = Product::SearchService.call(product_params)
         render json: ProductRepresenter.for_collection.new(@products).to_json, status: 200
       end
 

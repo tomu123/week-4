@@ -7,13 +7,13 @@ module Api
       class LikesController < Api::V1::ApplicationController
         def create
           like = Like::CreateService.call(like_params)
-          render json: "User: #{like.user.name} has successfully liked the Product: #{like.product.name}.",
+          render json: { message: "User: #{like.user.name} has successfully liked the Product: #{like.product.name}." },
                  status: :created
         end
 
         def destroy
           Like::DestroyService.call(like_params)
-          render json: "Product: #{Product.find(params[:product_id]).name} has been successfully unliked by User: #{User.find(params[:user_id]).name}",
+          render json: { message: "Product: #{Product.find(params[:product_id]).name} has been successfully unliked by User: #{User.find(params[:user_id]).name}" },
                  status: :ok
         end
 
