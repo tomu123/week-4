@@ -42,10 +42,6 @@ Rails.application.routes.draw do
       # admin
       namespace :admin do
         resources :products, only: %i[create update destroy]
-        resources :users, only: [] do
-          resources :orders, only: [:index]
-        end
-        resources :orders, only: [:show]
       end
 
       # support
@@ -59,7 +55,7 @@ Rails.application.routes.draw do
         resources :products, only: [] do
           resource :like, only: %i[create destroy]
         end
-        resources :orders, only: %i[show]
+        resources :orders, only: %i[index show]
       end
     end
   end
