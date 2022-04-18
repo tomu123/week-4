@@ -75,4 +75,8 @@ gem 'representable', '~> 3.1'
 # Representable Dependency for JSON documents
 gem 'multi_json', '~> 1.15'
 
-gem "pagy", "~> 5.10"
+# Add support for Pagination
+gem 'pagy', '~> 5.10'
+
+# Add support for RFC 7519 OAuth JSON Web Token (JWT) standard.
+gem 'jwt', '~> 2.3'
