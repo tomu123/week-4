@@ -13,8 +13,10 @@ module Api
 
         def destroy
           Like::DestroyService.call(like_params)
-          render json: { message: "Product: #{Product.find(params[:product_id]).name} has been successfully unliked by User: #{User.find(params[:user_id]).name}" },
-                 status: :ok
+          product_name = Product.find(params[:product_id]).name
+          user_name = User.find(params[:user_id]).name
+          message = "Product: #{product_name} has been successfully unliked by User: #{user_name}"
+          render json: { message: message }, status: :ok
         end
 
         private
