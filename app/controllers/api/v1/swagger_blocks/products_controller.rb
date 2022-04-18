@@ -63,6 +63,7 @@ module Api
               key :description, 'direction to sort by price'
               key :required, false
               key :type, :string
+              key :enum, %w[asc desc]
             end
             parameter do
               key :name, :sort_by_popularity
@@ -70,6 +71,7 @@ module Api
               key :description, 'direction to sort by popularity'
               key :required, false
               key :type, :string
+              key :enum, %w[asc desc]
             end
             parameter do
               key :name, :sort_by_sales
@@ -77,6 +79,7 @@ module Api
               key :description, 'direction to sort by sales'
               key :required, false
               key :type, :string
+              key :enum, %w[asc desc]
             end
             parameter do
               key :name, :items
