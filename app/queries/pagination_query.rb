@@ -1,4 +1,4 @@
-class PaginatedProductsQuery
+class PaginationQuery
   include Pagy::Backend
 
   def initialize(params = {}, relation = Product.all)
