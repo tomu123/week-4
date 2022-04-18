@@ -4,8 +4,7 @@ module Api
   module V1
     module Customer
       # customer Likes Controller
-      class LikesController < Api::V1::ApplicationController
-        before_action :authorize_request
+      class LikesController < Api::V1::Customer::ApplicationController
         def create
           like = Like::CreateService.call(like_params)
           render json: { message: "User: #{like.user.name} has successfully liked the Product: #{like.product.name}." },
