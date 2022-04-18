@@ -26,13 +26,13 @@ module Api
             response 200 do
               key :description, 'product response'
               schema do
-                key :'$ref', '../../../models/swagger_blocks/product'
+                key :'$ref', '#/definitions/Product'
               end
             end
             response :default do
               key :description, 'unexpected error'
               schema do
-                key :'$ref', '../../../models/swagger_blocks/error_model'
+                key :'$ref', '#/definitions/ErrorModel'
               end
             end
           end
@@ -116,14 +116,14 @@ module Api
               schema do
                 key :type, :array
                 items do
-                  key :'$ref', '../../../models/swagger_blocks/product'
+                  key :'$ref', '#/definitions/Product'
                 end
               end
             end
             response :default do
               key :description, 'unexpected error'
               schema do
-                key :'$ref', '../../../models/swagger_blocks/error_model'
+                key :'$ref', '#/definitions/ErrorModel'
               end
             end
           end
