@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       # public
 
+      post 'auth/login', to: 'authentication#login'
       resources :products, only: %i[show index]
       resource :cart, only: [:show] do
         resources :line_items, except: %i[edit new index], shallow: true
