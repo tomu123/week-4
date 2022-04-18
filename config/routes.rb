@@ -26,6 +26,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      # swagger-blocks
+      namespace :swagger_blocks do
+        resources :apidocs, only: [:index]
+      end
+
       # public
 
       post 'auth/login', to: 'authentication#login'
