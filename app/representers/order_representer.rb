@@ -1,5 +1,4 @@
-class OrderRepresenter < Representable::Decorator
-  include Representable::JSON
+class OrderRepresenter < ApplicationRepresenter
   property :id
   property :user do
     property :id

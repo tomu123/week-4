@@ -1,4 +1,4 @@
-class Product::DestroyService < ApplicationService
+class Product::ShowService < ApplicationService
   attr_reader :product_id
 
   def initialize(product_id)
@@ -8,16 +8,16 @@ class Product::DestroyService < ApplicationService
 
   def call
     find_product
-    destroy
+    render_json
   end
 
   private
 
   def find_product
-    @product = Product.find(@product_id)
+    @product = Product.find(product_id)
   end
 
-  def destroy
-    @product.destroy
+  def render_json
+    ProductRepresenter.jsonapi_new(@product).to_json
   end
 end

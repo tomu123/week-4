@@ -1,4 +1,4 @@
-class Order::SearchService < ApplicationService
+class Order::SearchService < SearchService
   attr_reader :params, :relation
 
   def initialize(params = {}, relation = Order.all)
@@ -8,6 +8,7 @@ class Order::SearchService < ApplicationService
   end
 
   def call
-    PaginationQuery.new(params, relation).call
+    pagy, orders = PaginationService.call(params, relation)
+    render_json(OrderRepresenter, orders, pagy)
   end
 end

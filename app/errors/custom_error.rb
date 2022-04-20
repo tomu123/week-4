@@ -4,11 +4,11 @@
 class CustomError < StandardError
   attr_reader :error, :message, :status
 
-  def initialize(error = nil, message = nil, status = nil)
-    super(message || 'Something went wrong')
-    @error = error || 'base'
-    @message = message || 'Something went wrong'
-    @status = status || :unprocessable_entity
+  def initialize(error_params = {})
+    super
+    @error = error_params[:error]
+    @message = error_params[:message]
+    @status = error_params[:status]
   end
 
   def fetch_json

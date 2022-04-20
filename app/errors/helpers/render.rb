@@ -3,13 +3,12 @@ module Helpers
   # class Render
   class Render
     def self.json(error, message)
-      {
-        errors:
-        {
-          field_name: error,
-          message: message
-        }
-      }.as_json
+      return nil if error.blank? && message.blank?
+
+      result = { errors: {} }
+      result[:errors][:title] = error unless error.blank?
+      result[:errors][:detail] = message unless message.blank?
+      result.as_json
     end
   end
 end

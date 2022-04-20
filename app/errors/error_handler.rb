@@ -4,25 +4,28 @@
 module ErrorHandler
   def self.included(klass)
     klass.class_eval do
-      rescue_from ActiveRecord::RecordNotFound do |e|
-        respond(:record_not_found, 404, e.to_s)
-      end
       rescue_from StandardError do |e|
-        respond(:standard_error, 500, e.to_s)
+        respond(:internal_server_error, :standard_error, e.to_s)
+      end
+      rescue_from ActiveRecord::RecordNotFound do |e|
+        respond(:not_found, :record_not_found, e.to_s)
       end
       rescue_from ArgumentError do |e|
-        respond(:argument_error, 422, e.to_s)
+        respond(:unprocessable_entity, :argument_error, e.to_s)
+      end
+      rescue_from ActionDispatch::Http::Parameters::ParseError do |_e|
+        respond(:bad_request)
       end
       rescue_from CustomError do |e|
-        respond(e.error, e.status, e.message)
+        respond(e.status, e.error, e.message)
       end
     end
   end
 
   private
 
-  def respond(error, status, message)
+  def respond(status, error = nil, message = nil)
     json = Helpers::Render.json(error, message)
-    render json: json, status: status
+    json.nil? ? head(status) : render(json: json, status: status)
   end
 end

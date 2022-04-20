@@ -1,28 +1,29 @@
 # frozen_string_literal: true
 
-# Service to unlike a product
+# Service to unlike a like
 class Like::DestroyService < ApplicationService
-  attr_reader :params
-  attr_accessor :result
+  attr_reader :product_id, :current_user
 
-  def initialize(params = {})
+  def initialize(product_id, current_user)
     super()
-    @params = params
+    @product_id = product_id
+    @current_user = current_user
   end
 
   def call
-    like_form = Like::DestroyForm.new(params)
-    validate(like_form)
-    destroy(like_form.attributes)
+    find_like
+    destroy
   end
 
   private
 
-  def validate(like_form)
-    raise ArgumentError, like_form.errors.as_json unless like_form.valid?
+  def find_like
+    @like = Like.find_by(product_id: product_id, user: current_user)
+    message = "Couldn't find Like with 'product_id' = #{product_id} for current user"
+    raise ActiveRecord::RecordNotFound, message if @like.blank?
   end
 
-  def destroy(like_params)
-    Like.delete_by(like_params)
+  def destroy
+    @like.destroy
   end
 end

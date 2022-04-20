@@ -9,8 +9,7 @@ module Api
         private
 
         def authorize_role
-          message = "Current User: #{@current_user.name} is not an admin."
-          raise CustomError.new('Invalid User', message, :unauthorized) unless @current_user.admin_role?
+          raise CustomError.new(status: :unauthorized) unless @current_user.admin_role?
         end
       end
     end

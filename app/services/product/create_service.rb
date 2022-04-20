@@ -10,15 +10,23 @@ class Product::CreateService < ApplicationService
     product_form = ProductForm.new(params)
     validate(product_form)
     create(product_form.attributes)
+    json = render_json
+    [json, @product]
   end
 
   private
 
   def validate(product_form)
-    raise ArgumentError, product_form.errors.as_json unless product_form.valid?
+    error = :argument_error
+    status = :unprocessable_entity
+    raise CustomError.new(error: error, status: status, message: product_form.errors.to_hash) unless product_form.valid?
   end
 
   def create(product_params)
-    Product.create(product_params)
+    @product = Product.create(product_params)
+  end
+
+  def render_json
+    ProductRepresenter.jsonapi_new(@product).to_json
   end
 end

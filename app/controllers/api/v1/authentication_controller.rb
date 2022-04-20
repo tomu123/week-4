@@ -6,7 +6,7 @@ module Api
     class AuthenticationController < Api::V1::ApplicationController
       def login
         token = Auth::LoginService.call(login_params)
-        render json: { token: token }, status: :ok
+        render json: { data: { token: token } }, status: :ok
       end
 
       private

@@ -2,27 +2,37 @@
 
 # Service to like a product
 class Like::CreateService < ApplicationService
-  attr_reader :params
-  attr_accessor :result
+  attr_reader :product_id, :current_user
 
-  def initialize(params = {})
+  def initialize(product_id, current_user)
     super()
-    @params = params
+    @product_id = product_id
+    @current_user = current_user
   end
 
   def call
-    like_form = Like::CreateForm.new(params)
-    validate(like_form)
-    create(like_form.attributes)
+    find_product
+    validate
+    create
+    render_json
   end
 
   private
 
-  def validate(like_form)
-    raise ArgumentError, like_form.errors.as_json unless like_form.valid?
+  def find_product
+    @product = Product.find(product_id)
   end
 
-  def create(like_params)
-    Like.create(like_params)
+  def validate
+    message = "Current user has already liked the Product: #{Product.find(product_id).name}."
+    raise ArgumentError, message if Like.exists?(product: @product, user: current_user)
+  end
+
+  def create
+    @like = @product.likes.create(user: current_user)
+  end
+
+  def render_json
+    LikeRepresenter.jsonapi_new(@like).to_json
   end
 end

@@ -1,5 +1,4 @@
-class ProductRepresenter < Representable::Decorator
-  include Representable::JSON
+class ProductRepresenter < ApplicationRepresenter
   property :id
   property :name
   property :description

@@ -12,18 +12,10 @@ class Product::UpdateService < ApplicationService
     product_form = ProductForm.new(product_params)
     validate(product_form)
     update(product_form.attributes)
+    render_json
   end
 
   private
-
-  def validate(product_form)
-    raise ArgumentError, product_form.errors.as_json unless product_form.valid?
-  end
-
-  def update(product_params)
-    @product.update(product_params)
-    @product
-  end
 
   def find_product
     @product = Product.find(@product_id)
@@ -31,5 +23,19 @@ class Product::UpdateService < ApplicationService
 
   def product_params
     @product.attributes.merge(@params).symbolize_keys.slice(:name, :description, :price, :stock)
+  end
+
+  def validate(product_form)
+    error = :argument_error
+    status = :unprocessable_entity
+    raise CustomError.new(error: error, status: status, message: product_form.errors.to_hash) unless product_form.valid?
+  end
+
+  def update(product_params)
+    @product.update(product_params)
+  end
+
+  def render_json
+    ProductRepresenter.jsonapi_new(@product).to_json
   end
 end

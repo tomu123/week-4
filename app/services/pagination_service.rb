@@ -1,7 +1,8 @@
-class PaginationQuery
+class PaginationService < ApplicationService
   include Pagy::Backend
 
-  def initialize(params = {}, relation = Product.all)
+  def initialize(params = {}, relation = [])
+    super()
     @params = params
     @relation = relation
   end
