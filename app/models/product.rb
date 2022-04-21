@@ -8,6 +8,7 @@ class Product < ApplicationRecord
   has_many :comments, as: :commentable
   has_many :product_tags
   has_many :tags, through: :product_tags
+  has_one_attached :image
 
   scope :sort_by_price, ->(desc) { order(price: desc) }
   scope :sort_by_name, ->(desc) { order(name: desc) }
