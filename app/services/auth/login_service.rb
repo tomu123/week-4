@@ -11,26 +11,38 @@ module Auth
     end
 
     def call
-      user = find_user
-      validate(user)
-      create_jwt(user)
+      find_user
+      validate
+      create_jwt
+      render_json
     end
 
     private
 
     def find_user
-      User.find_by(email: params[:email])
+      @user = User.find_by(email: params[:email])
     end
 
-    def validate(user)
-      unless user&.valid_password?(params[:password])
+    def validate
+      unless @user&.valid_password?(params[:password])
         raise CustomError.new('Login error', 'Incorrect email or password',
                               :unauthorized)
       end
     end
 
-    def create_jwt(user)
-      JsonWebToken.encode(user_id: user.id)
+    def create_jwt
+      @token = JsonWebToken.encode(user_id: @user.id)
+    end
+
+    def render_json
+      {
+        "token": @token,
+        "expires": 8.days.from_now,
+        "user": {
+          "first_name": @user.first_name,
+          "last_name": @user.last_name
+        }
+      }.to_json
     end
   end
 end
