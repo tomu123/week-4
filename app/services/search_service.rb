@@ -6,10 +6,10 @@ class SearchService < ApplicationService
   def render_json(representer, collection, pagy)
     response = representer.jsonapi_for_collection(collection)
     response[:meta] = {
-      'Current-Page' => pagy.page,
-      'Page-Items' => pagy.items,
-      'Total-Pages' => pagy.pages,
-      'Total-Count' => pagy.count
+      'current_page' => pagy.page,
+      'page_items' => pagy.items,
+      'total_pages' => pagy.pages,
+      'total_count' => pagy.count
     }
     response.to_json
   end
