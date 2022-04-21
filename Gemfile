@@ -25,7 +25,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -35,6 +35,8 @@ group :development, :test do
   gem 'faker', '~> 2.20'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  # Add support to load environment variables from `.env` files.
+  gem 'dotenv-rails', '~> 2.7'
 end
 
 group :development do
@@ -81,4 +83,7 @@ gem 'pagy', '~> 5.10'
 # Add support for RFC 7519 OAuth JSON Web Token (JWT) standard.
 gem 'jwt', '~> 2.3'
 
-gem "swagger-blocks", "~> 3.0"
+gem 'swagger-blocks', '~> 3.0'
+
+# Add support for Google Cloud Storage
+gem 'google-cloud-storage', '~> 1.36', require: false
