@@ -13,7 +13,7 @@ module Api
         private
 
         def product_params
-          params.require(:data).require(:attributes).permit(:name, :description, :stock)
+          params.require(:data).permit(:name, :description, :stock)
         end
       end
     end

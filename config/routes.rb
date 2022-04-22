@@ -48,6 +48,9 @@ Rails.application.routes.draw do
       # admin
       namespace :admin do
         resources :products, only: %i[create update destroy]
+        resource :comments, only: %i[destroy index] do
+          patch 'approve'
+        end
       end
 
       # support
@@ -62,6 +65,9 @@ Rails.application.routes.draw do
           resource :like, only: %i[create destroy]
         end
         resources :orders, only: %i[index show]
+        resources :users, only: [] do
+          resource :comments, only: %i[create index]
+        end
       end
     end
   end

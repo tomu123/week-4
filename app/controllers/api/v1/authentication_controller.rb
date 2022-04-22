@@ -12,7 +12,7 @@ module Api
       private
 
       def login_params
-        params.require(:data).require(:attributes).permit(:email, :password)
+        params.require(:data).permit(:email, :password)
       end
     end
   end
