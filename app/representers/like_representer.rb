@@ -6,5 +6,6 @@ class LikeRepresenter < ApplicationRepresenter
   property :product do
     property :id
     property :name
+    property :like_count
   end
 end

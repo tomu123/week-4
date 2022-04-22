@@ -5,6 +5,7 @@ class ProductRepresenter < ApplicationRepresenter
   property :price
   property :stock
   property :image, exec_context: :decorator
+  property :like_count
 
   def image
     return nil unless represented.image.attached?
