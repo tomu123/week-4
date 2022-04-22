@@ -126,7 +126,7 @@ Rails.application.configure do
   # SMTP setting in order to use Action Mailer with Gmail
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    port: 25,
+    port: 2525,
     address: 'smtp.gmail.com',
     user_name: ENV['SMTP_USER_NAME'],
     password: ENV['SMTP_PASSWORD'],
