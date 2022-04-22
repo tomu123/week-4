@@ -14,6 +14,7 @@ class Like::CreateService < ApplicationService
     find_product
     validate
     create
+    update_like_count
     render_json
   end
 
@@ -30,6 +31,10 @@ class Like::CreateService < ApplicationService
 
   def create
     @like = @product.likes.create(user: current_user)
+  end
+
+  def update_like_count
+    UpdateLikeCountJob.perform_later(@product.id, +1)
   end
 
   def render_json

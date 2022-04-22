@@ -389,7 +389,8 @@ CREATE TABLE public.products (
     price numeric(8,2),
     stock integer,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    like_count integer
 );
 
 
@@ -960,6 +961,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220404083826'),
 ('20220406201718'),
 ('20220406203518'),
-('20220420215057');
+('20220420215057'),
+('20220422133156');
 
 

@@ -13,6 +13,7 @@ class Like::DestroyService < ApplicationService
   def call
     find_like
     destroy
+    update_like_count
   end
 
   private
@@ -25,5 +26,9 @@ class Like::DestroyService < ApplicationService
 
   def destroy
     @like.destroy
+  end
+
+  def update_like_count
+    UpdateLikeCountJob.perform_later(product_id, -1)
   end
 end
