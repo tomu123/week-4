@@ -35,5 +35,6 @@
 yarn-debug.log*
 .yarn-integrity
 
-# Ignore secret keys and files
+# Ignore secret keys and .env files
 /config/secrets/*
+.env

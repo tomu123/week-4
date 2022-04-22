@@ -17,6 +17,9 @@ class CartsController < ApplicationController
       end
       if flash[:alert].empty?
         order_lines.each(&:save!)
+        order_lines.each do |ol|
+          ProductMailer.with(product: ol.product).stock_notification.deliver_later if ol.product.stock <= 3
+        end
         @cart.destroy
         flash[:notice] = 'Your purchase was successful'
         redirect_to products_url and return

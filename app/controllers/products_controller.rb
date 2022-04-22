@@ -9,21 +9,14 @@ class ProductsController < ApplicationController
   before_action :admin_or_support, only: %i[edit update]
 
   def index
-    @products = Product::SearchService.call(params)
+    @products = FilteredProductsQuery.new(params).call
+    @products = OrderedProductsQuery.new(params, @products).call
   end
 
   def create
-    result = Product::CreateService.call(product_params)
-    if result[:errors].blank?
-      flash[:notice] = "Product was successfully created."
-      @product = result[:success]
-      redirect_to product_url(@product)
-    else
-      flash[:alert] = result[:errors].full_messages
-      @product = Product.new(product_params)
-      @product.errors.merge!(result[:errors])
-      render :new
-    end
+    @product = Product.new(product_params)
+    flash[:notice] = 'Product was successfully created.' if @product.save
+    respond_with @product
   end
 
   def new
@@ -35,17 +28,8 @@ class ProductsController < ApplicationController
   def show; end
 
   def update
-    result = Product::UpdateService.call(params[:id], product_params)
-    if result[:errors].blank?
-      flash[:notice] = "Product was successfully updated."
-      @product = result[:success]
-      redirect_to product_url(@product)
-    else
-      flash[:alert] = result[:errors].full_messages
-      @product = Product.new(product_params)
-      @product.errors.merge!(result[:errors])
-      render :edit
-    end
+    flash[:notice] = 'Product was successfully updated.' if @product.update(product_params)
+    respond_with @product
   end
 
   def destroy
