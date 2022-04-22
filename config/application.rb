@@ -24,5 +24,8 @@ module Week4
     # Creates a database schema file (either db/schema.rb or db/structure.sql, depending on `config.active_record.schema_format`)
     # Loads a database schema file (either db/schema.rb or db/structure.sql, depending on `config.active_record.schema_format`) into the database
     config.active_record.schema_format = :sql
+
+    # The Active Job adapter must be set to :sidekiq or else it will use the default value provided by Rails, which is :async
+    config.active_job.queue_adapter = :sidekiq
   end
 end

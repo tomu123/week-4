@@ -87,3 +87,7 @@ gem 'swagger-blocks', '~> 3.0'
 
 # Add support for Google Cloud Storage
 gem 'google-cloud-storage', '~> 1.36', require: false
+
+# Add support for using ActiveJob with SideKiq as queing backend
+gem 'sidekiq', '~> 6.4'
+gem 'sidekiq-failures', '~> 1.0'

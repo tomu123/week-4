@@ -22,6 +22,12 @@ Rails.application.routes.draw do
   resources :tags, except: [:show]
   resources :product_tags, only: %i[destroy]
 
+  # Sidekiq Web UI, only for admins.
+  require 'sidekiq/web'
+  authenticate :user, ->(user) { user.admin_role? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   # api routes
 
   namespace :api do
