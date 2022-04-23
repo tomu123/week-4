@@ -10,6 +10,16 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: comment_status; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.comment_status AS ENUM (
+    'pending',
+    'approved'
+);
+
+
+--
 -- Name: order_status; Type: TYPE; Schema: public; Owner: -
 --
 
@@ -189,7 +199,8 @@ CREATE TABLE public.comments (
     commentable_type character varying NOT NULL,
     commentable_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    comment_status public.comment_status DEFAULT 'pending'::public.comment_status
 );
 
 
@@ -733,6 +744,13 @@ CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.ac
 
 
 --
+-- Name: index_comments_on_comment_status; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comments_on_comment_status ON public.comments USING btree (comment_status);
+
+
+--
 -- Name: index_comments_on_commentable; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -962,6 +980,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220406201718'),
 ('20220406203518'),
 ('20220420215057'),
-('20220422133156');
+('20220422133156'),
+('20220423004437');
 
 

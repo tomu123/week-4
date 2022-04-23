@@ -46,10 +46,11 @@ Rails.application.routes.draw do
       end
 
       # admin
+
       namespace :admin do
         resources :products, only: %i[create update destroy]
-        resource :comments, only: %i[destroy index] do
-          patch 'approve'
+        resources :comments, only: %i[destroy index show] do
+          patch 'approve', on: :member
         end
       end
 
@@ -60,14 +61,16 @@ Rails.application.routes.draw do
       end
 
       # customer
+
       namespace :customer do
         resources :products, only: [] do
           resource :like, only: %i[create destroy]
         end
         resources :orders, only: %i[index show]
         resources :users, only: [] do
-          resource :comments, only: %i[create index]
+          resources :comments, only: %i[create]
         end
+        resources :comments, only: %i[index show]
       end
     end
   end

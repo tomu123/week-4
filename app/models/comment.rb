@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 class Comment < ApplicationRecord
+  enum comment_status: { pending: 'pending', approved: 'approved' }, _suffix: 'status', _default: 'pending'
   belongs_to :user
   belongs_to :commentable, polymorphic: true
-  validates :user, :commentable, :date, :description, :rating, presence: true
-  validates :rating, numericality: { only_integer: true }
-  validates :rating, inclusion: { in: 1..5,
-                                  message: '%{attribute} should be between 1 and 5' }
+
+  default_scope { approved_status }
 end
