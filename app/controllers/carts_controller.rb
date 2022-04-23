@@ -18,7 +18,10 @@ class CartsController < ApplicationController
       if flash[:alert].empty?
         order_lines.each(&:save!)
         order_lines.each do |ol|
-          ProductMailer.with(product: ol.product).stock_notification.deliver_later if ol.product.stock <= 3
+          user = ol.product.likes.last&.user
+          if !user.nil? && (ol.product.stock <= 3)
+            ProductMailer.with(product: ol.product, recipient: user).stock_notification.deliver_later
+          end
         end
         @cart.destroy
         flash[:notice] = 'Your purchase was successful'
