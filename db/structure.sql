@@ -401,7 +401,8 @@ CREATE TABLE public.products (
     stock integer,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    like_count integer
+    like_count integer,
+    delete_at date
 );
 
 
@@ -481,7 +482,8 @@ CREATE TABLE public.users (
     first_name character varying,
     last_name character varying,
     address character varying,
-    user_role public.user_role DEFAULT 'customer'::public.user_role
+    user_role public.user_role DEFAULT 'customer'::public.user_role,
+    delete_at date
 );
 
 
@@ -981,6 +983,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220406203518'),
 ('20220420215057'),
 ('20220422133156'),
-('20220423004437');
+('20220423004437'),
+('20220424031739'),
+('20220424031759');
 
 

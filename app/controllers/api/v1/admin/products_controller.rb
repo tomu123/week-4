@@ -20,6 +20,11 @@ module Api
           head :no_content
         end
 
+        def recover
+          Product::RecoverService.call(params[:id])
+          head :no_content
+        end
+
         private
 
         def product_params

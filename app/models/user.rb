@@ -6,6 +6,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # Add support to softdelete users
+  include SoftDelete
+
   enum user_role: { customer: 'customer', admin: 'admin', support: 'support' }, _suffix: 'role',
        _default: 'customer'
 

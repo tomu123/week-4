@@ -48,11 +48,15 @@ Rails.application.routes.draw do
       # admin
 
       namespace :admin do
-        resources :products, only: %i[create update destroy]
+        resources :products, only: %i[create update destroy] do
+          patch 'recover', on: :member
+        end
         resources :comments, only: %i[destroy index show] do
           patch 'approve', on: :member
         end
-        resources :users, only: %i[create update destroy index show]
+        resources :users, only: %i[create update destroy index show] do
+          patch 'recover', on: :member
+        end
       end
 
       # support

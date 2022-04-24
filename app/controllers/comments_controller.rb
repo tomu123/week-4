@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
 
   def create
     params[:comment][:user_id] = current_user.id
-    params[:comment][:date] = Time.now
+    params[:comment][:date] = Time.current
     @comment = Comment.new(comment_params)
     @comment.commentable_type = params[:commentable_type]
     @comment.commentable_id = params[:product_id] if params[:commentable_type] == 'Product'
@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
   def edit; end
 
   def update
-    params[:comment][:date] = Time.now
+    params[:comment][:date] = Time.current
     @comment.update(comment_params)
     redirect_to @comment.commentable
   end

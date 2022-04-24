@@ -30,10 +30,15 @@ module Api
           head :no_content
         end
 
+        def recover
+          User::RecoverService.call(params[:id])
+          head :no_content
+        end
+
         private
 
         def user_params
-          params.permit(:page, :items, data: %i[email password first_name last_name address user_role])
+          params.permit(:page, :items, :filter, data: %i[email password first_name last_name address user_role])
         end
       end
     end

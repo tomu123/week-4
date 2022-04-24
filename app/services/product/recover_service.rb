@@ -1,4 +1,4 @@
-class Product::DestroyService < ApplicationService
+class Product::RecoverService < ApplicationService
   attr_reader :product_id
 
   def initialize(product_id)
@@ -8,16 +8,16 @@ class Product::DestroyService < ApplicationService
 
   def call
     find_product
-    destroy
+    recover
   end
 
   private
 
   def find_product
-    @product = Product.find(@product_id)
+    @product = Product.unscoped.find(@product_id)
   end
 
-  def destroy
-    @product.soft_destroy
+  def recover
+    @product.recover
   end
 end

@@ -10,7 +10,7 @@ class CartsController < ApplicationController
     unless @cart.line_items.empty?
       flash[:alert] = []
       order_lines = []
-      order = Order.create!(date: Time.now, user: current_user)
+      order = Order.create!(date: Time.current, user: current_user)
       @cart.line_items.each do |li|
         order_lines << order.order_lines.build(product: li.product, quantity: li.quantity)
         flash[:alert].push(*order_lines.last.errors.full_messages) unless order_lines.last.valid?

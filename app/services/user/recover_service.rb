@@ -1,4 +1,4 @@
-class User::DestroyService < ApplicationService
+class User::RecoverService < ApplicationService
   attr_reader :user_id
 
   def initialize(user_id)
@@ -8,16 +8,16 @@ class User::DestroyService < ApplicationService
 
   def call
     find_user
-    destroy
+    recover
   end
 
   private
 
   def find_user
-    @user = User.find(@user_id)
+    @user = User.unscoped.find(@user_id)
   end
 
-  def destroy
-    @user.soft_destroy
+  def recover
+    @user.recover
   end
 end

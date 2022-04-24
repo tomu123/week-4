@@ -7,7 +7,7 @@ class User::SearchService < SearchService
   end
 
   def call
-    users = User.unscoped
+    users = params[:filter].present? ? User.filter(params[:filter]) : User.all
     pagy, users = PaginationService.call(params, users)
     render_json(UserRepresenter, users, pagy)
   end
