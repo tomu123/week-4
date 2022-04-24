@@ -52,6 +52,7 @@ Rails.application.routes.draw do
         resources :comments, only: %i[destroy index show] do
           patch 'approve', on: :member
         end
+        resources :users, only: %i[create update destroy index show]
       end
 
       # support
