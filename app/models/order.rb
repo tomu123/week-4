@@ -9,4 +9,5 @@ class Order < ApplicationRecord
   has_many :comments, as: :commentable
 
   validates :user, :date, :order_status, presence: true
+  validates_associated :order_lines
 end

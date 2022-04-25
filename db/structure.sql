@@ -163,7 +163,8 @@ CREATE TABLE public.ar_internal_metadata (
 CREATE TABLE public.carts (
     id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    user_id bigint NOT NULL
 );
 
 
@@ -746,6 +747,13 @@ CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.ac
 
 
 --
+-- Name: index_carts_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_carts_on_user_id ON public.carts USING btree (user_id);
+
+
+--
 -- Name: index_comments_on_comment_status; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -937,6 +945,14 @@ ALTER TABLE ONLY public.order_lines
 
 
 --
+-- Name: carts fk_rails_ea59a35211; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.carts
+    ADD CONSTRAINT fk_rails_ea59a35211 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: product_tags fk_rails_ecabaad74a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -985,6 +1001,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220422133156'),
 ('20220423004437'),
 ('20220424031739'),
-('20220424031759');
+('20220424031759'),
+('20220424084119');
 
 

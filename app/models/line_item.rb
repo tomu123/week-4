@@ -3,9 +3,12 @@
 class LineItem < ApplicationRecord
   belongs_to :cart
   belongs_to :product
-  validates :cart, :product, :quantity, presence: true
+
+  def price
+    product.price
+  end
 
   def total
-    quantity * product.price
+    quantity * price
   end
 end

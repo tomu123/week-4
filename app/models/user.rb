@@ -18,6 +18,7 @@ class User < ApplicationRecord
   has_many :products, through: :order_lines
   has_many :likes, dependent: :destroy
   has_many :comments, as: :commentable
+  has_one :cart
 
   scope :orders_between_dates, ->(id, date_range) { find(id).orders.where(date: date_range) }
 

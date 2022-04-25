@@ -1,14 +1,12 @@
-class OrderRepresenter < ApplicationRepresenter
+class CartRepresenter < ApplicationRepresenter
   property :id
   property :user, as: :customer do
     property :id
     property :name
   end
-  property :date
   property :total
-  property :order_status
 
-  collection :order_lines, class: OrderLine do
+  collection :line_items, class: LineItem do
     property :id
     property :product do
       property :id

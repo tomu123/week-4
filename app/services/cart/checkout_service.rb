@@ -2,33 +2,60 @@
 
 # Service to like a product
 class Cart::CheckoutService < ApplicationService
-  attr_reader :cart, :current_user
+  attr_reader :current_user
 
-  def initialize(cart, current_user)
+  def initialize(current_user)
     super()
-    @cart = cart
     @current_user = current_user
   end
 
   def call
-    flash[:alert] = []
-    order_lines = []
-    order = Order.create!(date: Time.current, user: current_user)
-    @cart.line_items.each do |li|
-      order_lines << order.order_lines.build(product: li.product, quantity: li.quantity)
-      flash[:alert].push(*order_lines.last.errors.full_messages) unless order_lines.last.valid?
-    end
-    if flash[:alert].empty?
-      order_lines.each(&:save!)
-      order_lines.each do |ol|
-        ProductMailer.with(product: ol.product).stock_notification.deliver_later if ol.product.stock == 3
-      end
+    find_cart
+    build_order
+    if @order.valid?
+      @order.save!
+      stock_notification
       @cart.destroy
-      flash[:notice] = 'Your purchase was successful'
-      redirect_to products_url and return
+      json = render_json
+      [json, @order]
     else
-      order.destroy
-      redirect_to cart_path and return
+      raise_custom_error
     end
+  end
+
+  private
+
+  def find_cart
+    @cart = Cart.find_or_create_by!(user: current_user)
+    raise CustomError.new(error: 'Cart Empty', status: :unprocessable_entity) if @cart.line_items.empty?
+  end
+
+  def build_order
+    @order = current_user.orders.build(date: Time.current)
+    @cart.line_items.each do |li|
+      @order.order_lines.build(product: li.product, quantity: li.quantity, price: li.price, total: li.total)
+    end
+  end
+
+  def stock_notification
+    @order.order_lines.each do |ol|
+      stock = ol.product.stock
+      user_id = ol.product.likes.last.user_id
+      product_id = ol.product_id
+      ProductMailer.with(product_id: product_id, recipient_id: user_id).stock_notification.deliver_later if stock <= 3
+    end
+  end
+
+  def render_json
+    OrderRepresenter.jsonapi_new(@order).to_json
+  end
+
+  def raise_custom_error
+    error = :argument_error
+    status = :unprocessable_entity
+    errors = @order.order_lines.to_a.map do |ol|
+      ol.errors.to_hash
+    end
+    raise CustomError.new(error: error, status: status, message: errors)
   end
 end

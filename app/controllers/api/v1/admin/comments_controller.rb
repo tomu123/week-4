@@ -11,7 +11,7 @@ module Api
         end
 
         def show
-          json = Comment::ShowService.call(params[:id], current_user.admin_role?)
+          json = Comment::ShowService.call(params[:id], @current_user.admin_role?)
           render json: json, status: :ok
         end
 

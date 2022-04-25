@@ -41,9 +41,6 @@ Rails.application.routes.draw do
 
       post 'auth/login', to: 'authentication#login'
       resources :products, only: %i[show index]
-      resource :cart, only: [:show] do
-        resources :line_items, except: %i[edit new index], shallow: true
-      end
 
       # admin
 
@@ -76,6 +73,12 @@ Rails.application.routes.draw do
           resources :comments, only: %i[create]
         end
         resources :comments, only: %i[index show]
+        resource :cart, only: [:show] do
+          resources :line_items, only: %i[update destroy] do
+            post 'add_product', on: :collection
+          end
+          post 'checkout', on: :member
+        end
       end
     end
   end
