@@ -23,6 +23,7 @@ class OrderLine < ApplicationRecord
     product.save
   end
 
+  # eliminar y colocar en servicio checkout
   def calculate_order_total
     reload_order
     sub_totals = order.order_lines.to_a.map(&:total)

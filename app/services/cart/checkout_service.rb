@@ -26,8 +26,8 @@ class Cart::CheckoutService < ApplicationService
   private
 
   def find_cart
-    @cart = Cart.find_or_create_by!(user: current_user)
-    raise CustomError.new(error: 'Cart Empty', status: :unprocessable_entity) if @cart.line_items.empty?
+    @cart = Cart.find_by(user: current_user)
+    raise CustomError.new(error: 'Cart Empty', status: :unprocessable_entity) if @cart.blank?
   end
 
   def build_order
