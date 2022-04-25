@@ -402,7 +402,7 @@ CREATE TABLE public.products (
     stock integer,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    like_count integer,
+    like_count integer DEFAULT 0,
     delete_at date
 );
 
@@ -1002,6 +1002,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220423004437'),
 ('20220424031739'),
 ('20220424031759'),
-('20220424084119');
+('20220424084119'),
+('20220425054323');
 
 

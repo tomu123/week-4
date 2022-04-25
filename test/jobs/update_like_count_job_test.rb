@@ -1,7 +1,11 @@
-require "test_helper"
+require 'test_helper'
 
 class UpdateLikeCountJobTest < ActiveJob::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test 'that like count is updated' do
+    product = create(:product)
+    assert_difference('product.like_count') do
+      UpdateLikeCountJob.perform_now(product.id, 1)
+      product.reload
+    end
+  end
 end
