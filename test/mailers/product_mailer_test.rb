@@ -19,6 +19,7 @@ class ProductMailerTest < ActionMailer::TestCase
     assert_equal [customer.email], email.to
     assert_equal "Notification Low Stock - Product: #{product.name}", email.subject
 
+    product.image.variant(resize_to_limit: [220, 220]).image.purge
     product.image.purge
   end
 end
