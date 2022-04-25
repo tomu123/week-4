@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class LineItemsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_cart
 
   def create
@@ -20,9 +21,6 @@ class LineItemsController < ApplicationController
   private
 
   def set_cart
-    @cart = Cart.find(session[:cart_id])
-  rescue ActiveRecord::RecordNotFound
-    @cart = Cart.create
-    session[:cart_id] = @cart.id
+    @cart = Cart.find_or_create_by!(user: current_user)
   end
 end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class CartsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_cart
-  before_action :authenticate_user!, only: [:checkout]
 
   def show; end
 
@@ -38,9 +38,6 @@ class CartsController < ApplicationController
   private
 
   def set_cart
-    @cart = Cart.find(session[:cart_id])
-  rescue ActiveRecord::RecordNotFound
-    @cart = Cart.create
-    session[:cart_id] = @cart.id
+    @cart = Cart.find_or_create_by!(user: current_user)
   end
 end
