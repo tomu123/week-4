@@ -7,6 +7,7 @@ class ProductMailerTest < ActionMailer::TestCase
     customer = create(:user)
     email = ProductMailer.with(product_id: product.id, recipient_id: customer.id).stock_notification
 
+    # pasar al fixture files la imagen
     product.image.attach(io: File.open('/home/tomukomatsu/Pictures/product_placeholder.jpg'), filename: 'test.jpg')
 
     # Send the email, then test that it got queued

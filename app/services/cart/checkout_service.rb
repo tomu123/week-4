@@ -14,6 +14,7 @@ class Cart::CheckoutService < ApplicationService
     build_order
     if @order.valid?
       @order.save!
+      @order = Order.includes(order_lines: { product: { likes: :user } }).find(@order.id)
       stock_notification
       @cart.destroy
       json = render_json
@@ -26,7 +27,7 @@ class Cart::CheckoutService < ApplicationService
   private
 
   def find_cart
-    @cart = Cart.find_or_create_by!(user: current_user)
+    @cart = Cart.includes(line_items: :product).find_or_create_by!(user: current_user)
     raise CustomError.new(error: 'Cart Empty', status: :unprocessable_entity) if @cart.line_items.empty?
   end
 
@@ -40,9 +41,11 @@ class Cart::CheckoutService < ApplicationService
   def stock_notification
     @order.order_lines.each do |ol|
       stock = ol.product.stock
-      user_id = ol.product.likes.last.user_id
+      user = ol.product.likes.last&.user
+      next if user.blank?
+
       product_id = ol.product_id
-      ProductMailer.with(product_id: product_id, recipient_id: user_id).stock_notification.deliver_later if stock <= 3
+      ProductMailer.with(product_id: product_id, recipient_id: user.id).stock_notification.deliver_later if stock <= 3
     end
   end
 
@@ -51,11 +54,9 @@ class Cart::CheckoutService < ApplicationService
   end
 
   def raise_custom_error
-    error = :argument_error
-    status = :unprocessable_entity
     errors = @order.order_lines.to_a.map do |ol|
       ol.errors.to_hash
     end
-    raise CustomError.new(error: error, status: status, message: errors)
+    raise CustomError.new(error: :argument_error, status: :unprocessable_entity, message: errors)
   end
 end

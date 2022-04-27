@@ -6,13 +6,13 @@ module Api
       # customer LineItems Controller
       class LineItemsController < Api::V1::Customer::ApplicationController
         def add_product
-          LineItem::AddProductService.call(@current_user, line_item_params)
-          head :no_content
+          json = LineItem::AddProductService.call(@current_user, line_item_params)
+          render json: json, status: :ok
         end
 
         def update
-          LineItem::UpdateService.call(@current_user, params[:id], line_item_params)
-          head :no_content
+          json = LineItem::UpdateService.call(@current_user, params[:id], line_item_params)
+          render json: json, status: :ok
         end
 
         def destroy

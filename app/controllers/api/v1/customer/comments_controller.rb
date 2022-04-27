@@ -20,16 +20,6 @@ module Api
           render json: json, status: :created, location: api_v1_customer_comment_url(comment)
         end
 
-        # def update
-        #   json = Comment::UpdateService.call(params[:id], comment_params)
-        #   render json: json, status: :ok
-        # end
-
-        # def destroy
-        #   Comment::DestroyService.call(params[:id])
-        #   head :no_content
-        # end
-
         private
 
         def comment_params

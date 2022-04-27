@@ -1,3 +1,4 @@
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
 class Comment::CreateService < ApplicationService
   attr_reader :params, :current_user
 
@@ -32,13 +33,13 @@ class Comment::CreateService < ApplicationService
   end
 
   def validate(comment_form)
-    error = :argument_error
-    status = :unprocessable_entity
-    raise CustomError.new(error: error, status: status, message: comment_form.errors.to_hash) unless comment_form.valid?
+    unless comment_form.valid?
+      raise CustomError.new(error: :argument_error, status: :unprocessable_entity, message: comment_form.errors.to_hash)
+    end
   end
 
   def create(comment_params)
-    @comment = @user.comments.create(comment_params)
+    @comment = Comment.create(commentable: @user, **comment_params)
   end
 
   def render_json

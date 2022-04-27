@@ -21,8 +21,8 @@ module Api
         end
 
         def recover
-          Product::RecoverService.call(params[:id])
-          head :no_content
+          json = Product::RecoverService.call(params[:id])
+          render json: json, status: :ok
         end
 
         private

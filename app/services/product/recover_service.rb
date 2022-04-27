@@ -9,6 +9,7 @@ class Product::RecoverService < ApplicationService
   def call
     find_product
     recover
+    render_json
   end
 
   private
@@ -19,5 +20,9 @@ class Product::RecoverService < ApplicationService
 
   def recover
     @product.recover
+  end
+
+  def render_json
+    ProductRepresenter.jsonapi_new(@product).to_json
   end
 end

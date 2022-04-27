@@ -7,12 +7,12 @@ module Api
       class OrdersController < Api::V1::Customer::ApplicationController
         def index
           json = Order::SearchService.call(order_params, @current_user.orders)
-          render json: json, status: 200
+          render json: json, status: :ok
         end
 
         def show
           json = Order::ShowService.call(params[:id], @current_user)
-          render json: json, status: 200
+          render json: json, status: :ok
         end
 
         private

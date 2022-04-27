@@ -11,6 +11,6 @@ class Comment::SearchService < SearchService
     comments = current_user.admin_role? ? Comment.unscoped : Comment.all
     comments = FilteredCommentsQuery.new(params, comments).call
     pagy, comments = PaginationService.call(params, comments)
-    render_json(CommentRepresenter, comments, pagy)
+    render_json(CommentRepresenter, comments.includes(:user), pagy)
   end
 end

@@ -1,3 +1,4 @@
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
 class User::UpdateService < ApplicationService
   attr_reader :params, :user_id
 
@@ -28,9 +29,9 @@ class User::UpdateService < ApplicationService
   end
 
   def validate
-    error = :argument_error
-    status = :unprocessable_entity
-    raise CustomError.new(error: error, status: status, message: @user.errors.to_hash) unless @user.valid?
+    unless @user.valid?
+      raise CustomError.new(error: :argument_error, status: :unprocessable_entity, message: @user.errors.to_hash)
+    end
   end
 
   def render_json

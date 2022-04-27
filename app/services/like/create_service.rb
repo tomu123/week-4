@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-# Service to like a product
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation
 class Like::CreateService < ApplicationService
   attr_reader :product_id, :current_user
 
@@ -30,7 +28,7 @@ class Like::CreateService < ApplicationService
   end
 
   def create
-    @like = @product.likes.create(user: current_user)
+    @like = Like.create(user: current_user, product: @product)
   end
 
   def update_like_count
