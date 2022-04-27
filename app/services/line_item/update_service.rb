@@ -21,7 +21,8 @@ class LineItem::UpdateService < ApplicationService
   private
 
   def find_cart
-    @cart = Cart.find_or_create_by!(user: current_user)
+    @cart = Cart.find_by(user: current_user)
+    raise CustomError.new(error: 'Cart Empty', status: :unprocessable_entity) if @cart.blank? || @cart.line_items.empty?
   end
 
   def validate(form)
