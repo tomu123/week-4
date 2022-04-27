@@ -12,7 +12,8 @@ class CommentForm
       user_id: user_id,
       date: date,
       description: description,
-      rating: rating
+      rating: rating,
+      comment_status: 'pending'
     }
   end
 end

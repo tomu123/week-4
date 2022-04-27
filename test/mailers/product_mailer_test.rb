@@ -7,6 +7,7 @@ class ProductMailerTest < ActionMailer::TestCase
     customer = create(:user)
     email = ProductMailer.with(product_id: product.id, recipient_id: customer.id).stock_notification
 
+    # pasar al fixture files la imagen
     product.image.attach(io: File.open('/home/tomukomatsu/Pictures/product_placeholder.jpg'), filename: 'test.jpg')
 
     # Send the email, then test that it got queued
@@ -19,6 +20,7 @@ class ProductMailerTest < ActionMailer::TestCase
     assert_equal [customer.email], email.to
     assert_equal "Notification Low Stock - Product: #{product.name}", email.subject
 
+    product.image.variant(resize_to_limit: [220, 220]).image.purge
     product.image.purge
   end
 end

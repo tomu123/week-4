@@ -6,12 +6,12 @@ module Api
     class ProductsController < Api::V1::ApplicationController
       def index
         json = Product::SearchService.call(product_params)
-        render json: json, status: 200
+        render json: json, status: :ok
       end
 
       def show
         json = Product::ShowService.call(params[:id])
-        render json: json, status: 200
+        render json: json, status: :ok
       end
 
       private

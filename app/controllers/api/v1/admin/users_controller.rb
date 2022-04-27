@@ -7,12 +7,12 @@ module Api
       class UsersController < Api::V1::Admin::ApplicationController
         def index
           json = User::SearchService.call(user_params)
-          render json: json, status: 200
+          render json: json, status: :ok
         end
 
         def show
           json = User::ShowService.call(params[:id])
-          render json: json, status: 200
+          render json: json, status: :ok
         end
 
         def create
@@ -31,8 +31,8 @@ module Api
         end
 
         def recover
-          User::RecoverService.call(params[:id])
-          head :no_content
+          json = User::RecoverService.call(params[:id])
+          render json: json, status: :ok
         end
 
         private

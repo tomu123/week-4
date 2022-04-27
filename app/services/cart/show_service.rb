@@ -14,7 +14,7 @@ class Cart::ShowService < ApplicationService
   private
 
   def find_cart
-    @cart = Cart.find_or_create_by!(user: current_user)
+    @cart = Cart.includes(:user, line_items: :product).find_or_create_by!(user: current_user)
   end
 
   def render_json

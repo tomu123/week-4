@@ -15,7 +15,7 @@ class Order::ShowService < ApplicationService
   private
 
   def find_order
-    @order = Order.find_by(id: order_id, user: @current_user)
+    @order = Order.includes(:user, order_lines: :product).find_by(id: order_id, user: @current_user)
     message = "Couldn't find order with 'id' = #{order_id} for current user"
     raise ActiveRecord::RecordNotFound, message if @order.blank?
   end

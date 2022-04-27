@@ -12,6 +12,7 @@ class Comment::ApproveService < ApplicationService
   def call
     find_comment
     approve
+    render_json
   end
 
   private
@@ -22,5 +23,9 @@ class Comment::ApproveService < ApplicationService
 
   def approve
     @comment.approved_status!
+  end
+
+  def render_json
+    CommentRepresenter.jsonapi_new(@comment).to_json
   end
 end

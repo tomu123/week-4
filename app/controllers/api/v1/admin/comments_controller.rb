@@ -15,19 +15,9 @@ module Api
           render json: json, status: :ok
         end
 
-        # def create
-        #   json, comment = Comment::CreateService.call(@current_user, comment_params)
-        #   render json: json, status: :created, location: api_v1_admin_comment_url(comment)
-        # end
-
-        # def update
-        #   json = Comment::UpdateService.call(params[:id], comment_params)
-        #   render json: json, status: :ok
-        # end
-
         def approve
-          Comment::ApproveService.call(params[:id])
-          head :no_content
+          json = Comment::ApproveService.call(params[:id])
+          render json: json, status: :ok
         end
 
         def destroy

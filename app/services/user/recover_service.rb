@@ -9,6 +9,7 @@ class User::RecoverService < ApplicationService
   def call
     find_user
     recover
+    render_json
   end
 
   private
@@ -19,5 +20,9 @@ class User::RecoverService < ApplicationService
 
   def recover
     @user.recover
+  end
+
+  def render_json
+    UserRepresenter.jsonapi_new(@user).to_json
   end
 end

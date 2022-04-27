@@ -9,6 +9,6 @@ class Order::SearchService < SearchService
 
   def call
     pagy, orders = PaginationService.call(params, relation)
-    render_json(OrderRepresenter, orders, pagy)
+    render_json(OrderRepresenter, orders.includes(:user, order_lines: :product), pagy)
   end
 end

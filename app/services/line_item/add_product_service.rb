@@ -1,3 +1,4 @@
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
 class LineItem::AddProductService < ApplicationService
   attr_reader :params, :current_user
 
@@ -15,6 +16,7 @@ class LineItem::AddProductService < ApplicationService
     find_line_item
     add_quantity
     save
+    render_json
   end
 
   private
@@ -28,9 +30,9 @@ class LineItem::AddProductService < ApplicationService
   end
 
   def validate(form)
-    error = :argument_error
-    status = :unprocessable_entity
-    raise CustomError.new(error: error, status: status, message: form.errors.to_hash) unless form.valid?
+    unless form.valid?
+      raise CustomError.new(error: :argument_error, status: :unprocessable_entity, message: form.errors.to_hash)
+    end
   end
 
   def find_line_item
@@ -44,5 +46,9 @@ class LineItem::AddProductService < ApplicationService
 
   def save
     @line_item.save!
+  end
+
+  def render_json
+    LineItemRepresenter.jsonapi_new(@line_item).to_json
   end
 end

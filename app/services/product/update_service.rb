@@ -1,3 +1,4 @@
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
 class Product::UpdateService < ApplicationService
   attr_reader :params, :product_id
 
@@ -26,9 +27,9 @@ class Product::UpdateService < ApplicationService
   end
 
   def validate(product_form)
-    error = :argument_error
-    status = :unprocessable_entity
-    raise CustomError.new(error: error, status: status, message: product_form.errors.to_hash) unless product_form.valid?
+    unless product_form.valid?
+      raise CustomError.new(error: :argument_error, status: :unprocessable_entity, message: product_form.errors.to_hash)
+    end
   end
 
   def update(product_params)
