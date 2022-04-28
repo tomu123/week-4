@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-# Service to like a product
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
 class Cart::CheckoutService < ApplicationService
   attr_reader :current_user
 
@@ -11,17 +9,15 @@ class Cart::CheckoutService < ApplicationService
 
   def call
     find_cart
-    build_order
-    if @order.valid?
-      @order.save!
-      @order = Order.includes(order_lines: { product: { likes: :user } }).find(@order.id)
-      stock_notification
-      @cart.destroy
-      json = render_json
-      [json, @order]
-    else
-      raise_custom_error
-    end
+    cart_to_order_attributes
+    order_form = OrderForm.new(@attributes)
+    validate(order_form)
+    create_order
+    @order = Order.includes(order_lines: { product: { likes: :user } }).find(@order.id)
+    stock_notification
+    @cart.destroy
+    json = render_json
+    [json, @order]
   end
 
   private
@@ -31,17 +27,24 @@ class Cart::CheckoutService < ApplicationService
     raise CustomError.new(error: 'Cart Empty', status: :unprocessable_entity) if @cart.blank? || @cart.line_items.empty?
   end
 
-  def build_order
-    @order = current_user.orders.build(date: Time.current)
-    @cart.line_items.each do |li|
-      @order.order_lines.build(product: li.product, quantity: li.quantity, price: li.price, total: li.total)
+  def cart_to_order_attributes
+    @attributes = CartToOrderRepresenter.new(@cart).to_hash
+  end
+
+  def validate(form)
+    unless form.valid?
+      raise CustomError.new(error: :argument_error, status: :unprocessable_entity, message: form.errors.to_hash)
     end
+  end
+
+  def create_order
+    @order = Order.create(@attributes)
   end
 
   def stock_notification
     @order.order_lines.each do |ol|
       stock = ol.product.stock
-      user = ol.product.likes.last&.user
+      user = ol.product.likes.unscope(:order).last&.user
       next if user.blank?
 
       product_id = ol.product_id
@@ -51,12 +54,5 @@ class Cart::CheckoutService < ApplicationService
 
   def render_json
     OrderRepresenter.jsonapi_new(@order).to_json
-  end
-
-  def raise_custom_error
-    errors = @order.order_lines.to_a.map do |ol|
-      ol.errors.to_hash
-    end
-    raise CustomError.new(error: :argument_error, status: :unprocessable_entity, message: errors)
   end
 end

@@ -1,0 +1,445 @@
+Inspecting 106 files
+..C...C.C......C.CCCCCCWCCCCC.CCCCCCCCCCCCCCC.C.CCC..C.CCC...CCCCCCCCCCCCC.CCCCWCCC.WCWCWCCCWCCCCWC.WCCCCW
+
+Offenses:
+
+app/controllers/api/v1/admin/application_controller.rb:6:7: C: Style/Documentation: Missing top-level documentation comment for class Api::V1::Admin::ApplicationController.
+      class ApplicationController < Api::V1::ApplicationController
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/api/v1/application_controller.rb:5:5: C: Style/Documentation: Missing top-level documentation comment for class Api::V1::ApplicationController.
+    class ApplicationController < ActionController::API
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/api/v1/customer/application_controller.rb:6:7: C: Style/Documentation: Missing top-level documentation comment for class Api::V1::Customer::ApplicationController.
+      class ApplicationController < Api::V1::ApplicationController
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/api/v1/support/application_controller.rb:6:7: C: Style/Documentation: Missing top-level documentation comment for class Api::V1::Support::ApplicationController.
+      class ApplicationController < Api::V1::ApplicationController
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/api/v1/swagger_blocks/apidocs_controller.rb:6:7: C: Style/Documentation: Missing top-level documentation comment for class Api::V1::SwaggerBlocks::ApidocsController.
+      class ApidocsController < ActionController::Base
+      ^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/api/v1/swagger_blocks/apidocs_controller.rb:9:9: C: Metrics/BlockLength: Block has too many lines. [26/25]
+        swagger_root do ...
+        ^^^^^^^^^^^^^^^
+app/controllers/api/v1/swagger_blocks/products_controller.rb:7:7: C: Metrics/ClassLength: Class has too many lines. [122/100]
+      class ProductsController < ActionController::Base ...
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/api/v1/swagger_blocks/products_controller.rb:10:9: C: Metrics/BlockLength: Block has too many lines. [28/25]
+        swagger_path '/api/v1/products/{id}' do ...
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/api/v1/swagger_blocks/products_controller.rb:11:11: C: Metrics/BlockLength: Block has too many lines. [26/25]
+          operation :get do ...
+          ^^^^^^^^^^^^^^^^^
+app/controllers/api/v1/swagger_blocks/products_controller.rb:40:9: C: Metrics/BlockLength: Block has too many lines. [89/25]
+        swagger_path '/api/v1/products' do ...
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/api/v1/swagger_blocks/products_controller.rb:41:11: C: Metrics/BlockLength: Block has too many lines. [87/25]
+          operation :get do ...
+          ^^^^^^^^^^^^^^^^^
+app/controllers/application_controller.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class ApplicationController.
+class ApplicationController < ActionController::Base
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/carts_controller.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class CartsController.
+class CartsController < ApplicationController
+^^^^^^^^^^^^^^^^^^^^^
+app/controllers/carts_controller.rb:9:3: C: Metrics/AbcSize: Assignment Branch Condition size for checkout is too high. [<8, 51, 13> 53.24/17]
+  def checkout ...
+  ^^^^^^^^^^^^
+app/controllers/carts_controller.rb:9:3: C: Metrics/CyclomaticComplexity: Cyclomatic complexity for checkout is too high. [12/7]
+  def checkout ...
+  ^^^^^^^^^^^^
+app/controllers/carts_controller.rb:9:3: C: Metrics/MethodLength: Method has too many lines. [26/10]
+  def checkout ...
+  ^^^^^^^^^^^^
+app/controllers/carts_controller.rb:9:3: C: Metrics/PerceivedComplexity: Perceived complexity for checkout is too high. [13/8]
+  def checkout ...
+  ^^^^^^^^^^^^
+app/controllers/comments_controller.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class CommentsController.
+class CommentsController < ApplicationController
+^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/comments_controller.rb:7:3: C: Metrics/AbcSize: Assignment Branch Condition size for create is too high. [<8, 33, 7> 34.67/17]
+  def create ...
+  ^^^^^^^^^^
+app/controllers/comments_controller.rb:7:3: C: Metrics/MethodLength: Method has too many lines. [12/10]
+  def create ...
+  ^^^^^^^^^^
+app/controllers/likes_controller.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class LikesController.
+class LikesController < ApplicationController
+^^^^^^^^^^^^^^^^^^^^^
+app/controllers/line_items_controller.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class LineItemsController.
+class LineItemsController < ApplicationController
+^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/line_items_controller.rb:8:19: W: Lint/AssignmentInCondition: Use == if you meant to do a comparison or wrap the expression in parentheses to indicate you meant to assign in a condition.
+    if @line_item = @cart.line_items.find_by(product_id: params[:product_id])
+                  ^
+app/controllers/orders_controller.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class OrdersController.
+class OrdersController < ApplicationController
+^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/pages_controller.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class PagesController.
+class PagesController < ApplicationController
+^^^^^^^^^^^^^^^^^^^^^
+app/controllers/product_tags_controller.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class ProductTagsController.
+class ProductTagsController < ApplicationController
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/product_tags_controller.rb:6:3: C: Metrics/AbcSize: Assignment Branch Condition size for create is too high. [<3, 20, 2> 20.32/17]
+  def create ...
+  ^^^^^^^^^^
+app/controllers/products_controller.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class ProductsController.
+class ProductsController < ApplicationController
+^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/tags_controller.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class TagsController.
+class TagsController < ApplicationController
+^^^^^^^^^^^^^^^^^^^^
+app/errors/error_handler.rb:5:3: C: Metrics/AbcSize: Assignment Branch Condition size for included is too high. [<4, 17, 0> 17.46/17]
+  def self.included(klass) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^
+app/errors/error_handler.rb:5:3: C: Metrics/MethodLength: Method has too many lines. [17/10]
+  def self.included(klass) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^
+app/errors/helpers/render.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+# helper
+^
+app/forms/comment_form.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class CommentForm.
+class CommentForm
+^^^^^^^^^^^^^^^^^
+app/forms/comment_form.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class CommentForm
+^
+app/forms/comment_form.rb:8:55: C: Style/FormatStringToken: Prefer annotated tokens (like %<foo>s) over template tokens (like %{foo}).
+  validates :rating, inclusion: { in: 1..5, message: '%{attribute} should be between 1 and 5' }
+                                                      ^^^^^^^^^^^^
+app/forms/line_form.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class LineForm
+^
+app/forms/product_form.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class ProductForm.
+class ProductForm
+^^^^^^^^^^^^^^^^^
+app/forms/product_form.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class ProductForm
+^
+app/forms/product_form.rb:6:58: C: Style/FormatStringToken: Prefer annotated tokens (like %<foo>s) over template tokens (like %{foo}).
+  validates :name, :price, :stock, presence: { message: '%{attribute} must always be specified for %{model}' }
+                                                         ^^^^^^^^^^^^
+app/forms/product_form.rb:6:100: C: Style/FormatStringToken: Prefer annotated tokens (like %<foo>s) over template tokens (like %{foo}).
+  validates :name, :price, :stock, presence: { message: '%{attribute} must always be specified for %{model}' }
+                                                                                                   ^^^^^^^^
+app/helpers/application_helper.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for module ApplicationHelper.
+module ApplicationHelper
+^^^^^^^^^^^^^^^^^^^^^^^^
+app/helpers/carts_helper.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for module CartsHelper.
+module CartsHelper
+^^^^^^^^^^^^^^^^^^
+app/helpers/comments_helper.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for module CommentsHelper.
+module CommentsHelper
+^^^^^^^^^^^^^^^^^^^^^
+app/helpers/likes_helper.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for module LikesHelper.
+module LikesHelper
+^^^^^^^^^^^^^^^^^^
+app/helpers/line_items_helper.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for module LineItemsHelper.
+module LineItemsHelper
+^^^^^^^^^^^^^^^^^^^^^^
+app/helpers/orders_helper.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for module OrdersHelper.
+module OrdersHelper
+^^^^^^^^^^^^^^^^^^^
+app/helpers/pages_helper.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for module PagesHelper.
+module PagesHelper
+^^^^^^^^^^^^^^^^^^
+app/helpers/product_tags_helper.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for module ProductTagsHelper.
+module ProductTagsHelper
+^^^^^^^^^^^^^^^^^^^^^^^^
+app/helpers/products_helper.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for module ProductsHelper.
+module ProductsHelper
+^^^^^^^^^^^^^^^^^^^^^
+app/helpers/tags_helper.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for module TagsHelper.
+module TagsHelper
+^^^^^^^^^^^^^^^^^
+app/jobs/update_like_count_job.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class UpdateLikeCountJob.
+class UpdateLikeCountJob < ApplicationJob
+^^^^^^^^^^^^^^^^^^^^^^^^
+app/jobs/update_like_count_job.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class UpdateLikeCountJob < ApplicationJob
+^
+app/mailers/product_mailer.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class ProductMailer.
+class ProductMailer < ApplicationMailer
+^^^^^^^^^^^^^^^^^^^
+app/mailers/product_mailer.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class ProductMailer < ApplicationMailer
+^
+app/mailers/product_mailer.rb:2:3: C: Metrics/AbcSize: Assignment Branch Condition size for stock_notification is too high. [<4, 23, 2> 23.43/17]
+  def stock_notification ...
+  ^^^^^^^^^^^^^^^^^^^^^^
+app/models/application_record.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class ApplicationRecord.
+class ApplicationRecord < ActiveRecord::Base
+^^^^^^^^^^^^^^^^^^^^^^^
+app/models/cart.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class Cart.
+class Cart < ApplicationRecord
+^^^^^^^^^^
+app/models/line_item.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class LineItem.
+class LineItem < ApplicationRecord
+^^^^^^^^^^^^^^
+app/models/order_line.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class OrderLine.
+class OrderLine < ApplicationRecord
+^^^^^^^^^^^^^^^
+app/models/product.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class Product.
+class Product < ApplicationRecord
+^^^^^^^^^^^^^
+app/models/product_tag.rb:8:121: C: Layout/LineLength: Line is too long. [139/120]
+                                                            "#{object.tag.name} tag already exists for this product #{object.product.name}"
+                                                                                                                        ^^^^^^^^^^^^^^^^^^^
+app/models/user.rb:3:1: C: Style/Documentation: Missing top-level documentation comment for class User.
+class User < ApplicationRecord
+^^^^^^^^^^
+app/queries/filtered_comments_query.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class FilteredCommentsQuery.
+class FilteredCommentsQuery
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/queries/filtered_comments_query.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class FilteredCommentsQuery
+^
+app/queries/filtered_products_query.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class FilteredProductsQuery.
+class FilteredProductsQuery
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/queries/filtered_products_query.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class FilteredProductsQuery
+^
+app/queries/ordered_products_query.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class OrderedProductsQuery.
+class OrderedProductsQuery
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/queries/ordered_products_query.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class OrderedProductsQuery
+^
+app/representers/application_representer.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class ApplicationRepresenter.
+class ApplicationRepresenter < Representable::Decorator
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/representers/application_representer.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class ApplicationRepresenter < Representable::Decorator
+^
+app/representers/cart_representer.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class CartRepresenter < ApplicationRepresenter
+^
+app/representers/comment_representer.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class CommentRepresenter < ApplicationRepresenter
+^
+app/representers/like_representer.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class LikeRepresenter < ApplicationRepresenter
+^
+app/representers/line_item_representer.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class LineItemRepresenter < ApplicationRepresenter
+^
+app/representers/order_representer.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class OrderRepresenter < ApplicationRepresenter
+^
+app/representers/product_representer.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class ProductRepresenter.
+class ProductRepresenter < ApplicationRepresenter
+^^^^^^^^^^^^^^^^^^^^^^^^
+app/representers/product_representer.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class ProductRepresenter < ApplicationRepresenter
+^
+app/representers/user_representer.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class UserRepresenter < ApplicationRepresenter
+^
+app/services/application_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class ApplicationService.
+class ApplicationService
+^^^^^^^^^^^^^^^^^^^^^^^^
+app/services/application_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class ApplicationService
+^
+app/services/auth/login_service.rb:27:7: C: Style/GuardClause: Use a guard clause (return if @user&.valid_password?(params[:password])) instead of wrapping the code inside a conditional expression.
+      unless @user&.valid_password?(params[:password])
+      ^^^^^^
+app/services/cart/checkout_service.rb:4:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class Cart::CheckoutService < ApplicationService
+      ^^^^^^^^^^^^^^^^^^^^^
+app/services/cart/checkout_service.rb:12:3: C: Metrics/MethodLength: Method has too many lines. [12/10]
+  def call ...
+  ^^^^^^^^
+app/services/cart/show_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class Cart::ShowService.
+class Cart::ShowService < ApplicationService
+^^^^^^^^^^^^^^^^^^^^^^^
+app/services/cart/show_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class Cart::ShowService < ApplicationService
+^
+app/services/cart/show_service.rb:1:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class Cart::ShowService < ApplicationService
+      ^^^^^^^^^^^^^^^^^
+app/services/comment/approve_service.rb:4:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class Comment::ApproveService < ApplicationService
+      ^^^^^^^^^^^^^^^^^^^^^^^
+app/services/comment/create_service.rb:1:1: W: Lint/MissingCopEnableDirective: Re-enable Style/ClassAndModuleChildren cop with # rubocop:enable after disabling it.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
+^
+app/services/comment/create_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
+^
+app/services/comment/destroy_service.rb:4:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class Comment::DestroyService < ApplicationService
+      ^^^^^^^^^^^^^^^^^^^^^^^
+app/services/comment/search_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class Comment::SearchService.
+class Comment::SearchService < SearchService
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/services/comment/search_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class Comment::SearchService < SearchService
+^
+app/services/comment/search_service.rb:1:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class Comment::SearchService < SearchService
+      ^^^^^^^^^^^^^^^^^^^^^^
+app/services/comment/show_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class Comment::ShowService.
+class Comment::ShowService < ApplicationService
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/services/comment/show_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class Comment::ShowService < ApplicationService
+^
+app/services/comment/show_service.rb:1:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class Comment::ShowService < ApplicationService
+      ^^^^^^^^^^^^^^^^^^^^
+app/services/like/create_service.rb:1:1: W: Lint/MissingCopEnableDirective: Re-enable Style/ClassAndModuleChildren cop with # rubocop:enable after disabling it.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation
+^
+app/services/like/create_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation
+^
+app/services/like/destroy_service.rb:4:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class Like::DestroyService < ApplicationService
+      ^^^^^^^^^^^^^^^^^^^^
+app/services/line_item/add_product_service.rb:1:1: W: Lint/MissingCopEnableDirective: Re-enable Style/ClassAndModuleChildren cop with # rubocop:enable after disabling it.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
+^
+app/services/line_item/add_product_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
+^
+app/services/line_item/destroy_service.rb:4:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class LineItem::DestroyService < ApplicationService
+      ^^^^^^^^^^^^^^^^^^^^^^^^
+app/services/line_item/update_service.rb:1:1: W: Lint/MissingCopEnableDirective: Re-enable Style/ClassAndModuleChildren cop with # rubocop:enable after disabling it.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
+^
+app/services/line_item/update_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
+^
+app/services/order/search_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class Order::SearchService.
+class Order::SearchService < SearchService
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/services/order/search_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class Order::SearchService < SearchService
+^
+app/services/order/search_service.rb:1:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class Order::SearchService < SearchService
+      ^^^^^^^^^^^^^^^^^^^^
+app/services/order/show_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class Order::ShowService.
+class Order::ShowService < ApplicationService
+^^^^^^^^^^^^^^^^^^^^^^^^
+app/services/order/show_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class Order::ShowService < ApplicationService
+^
+app/services/order/show_service.rb:1:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class Order::ShowService < ApplicationService
+      ^^^^^^^^^^^^^^^^^^
+app/services/pagination_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class PaginationService.
+class PaginationService < ApplicationService
+^^^^^^^^^^^^^^^^^^^^^^^
+app/services/pagination_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class PaginationService < ApplicationService
+^
+app/services/product/create_service.rb:1:1: W: Lint/MissingCopEnableDirective: Re-enable Style/ClassAndModuleChildren cop with # rubocop:enable after disabling it.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
+^
+app/services/product/create_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
+^
+app/services/product/destroy_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class Product::DestroyService.
+class Product::DestroyService < ApplicationService
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/services/product/destroy_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class Product::DestroyService < ApplicationService
+^
+app/services/product/destroy_service.rb:1:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class Product::DestroyService < ApplicationService
+      ^^^^^^^^^^^^^^^^^^^^^^^
+app/services/product/recover_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class Product::RecoverService.
+class Product::RecoverService < ApplicationService
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/services/product/recover_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class Product::RecoverService < ApplicationService
+^
+app/services/product/recover_service.rb:1:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class Product::RecoverService < ApplicationService
+      ^^^^^^^^^^^^^^^^^^^^^^^
+app/services/product/search_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class Product::SearchService.
+class Product::SearchService < SearchService
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/services/product/search_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class Product::SearchService < SearchService
+^
+app/services/product/search_service.rb:1:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class Product::SearchService < SearchService
+      ^^^^^^^^^^^^^^^^^^^^^^
+app/services/product/show_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class Product::ShowService.
+class Product::ShowService < ApplicationService
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/services/product/show_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class Product::ShowService < ApplicationService
+^
+app/services/product/show_service.rb:1:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class Product::ShowService < ApplicationService
+      ^^^^^^^^^^^^^^^^^^^^
+app/services/product/update_service.rb:1:1: W: Lint/MissingCopEnableDirective: Re-enable Style/ClassAndModuleChildren cop with # rubocop:enable after disabling it.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
+^
+app/services/product/update_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
+^
+app/services/search_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class SearchService.
+class SearchService < ApplicationService
+^^^^^^^^^^^^^^^^^^^
+app/services/search_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class SearchService < ApplicationService
+^
+app/services/user/create_service.rb:1:1: W: Lint/MissingCopEnableDirective: Re-enable Style/ClassAndModuleChildren cop with # rubocop:enable after disabling it.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
+^
+app/services/user/create_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
+^
+app/services/user/destroy_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class User::DestroyService.
+class User::DestroyService < ApplicationService
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/services/user/destroy_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class User::DestroyService < ApplicationService
+^
+app/services/user/destroy_service.rb:1:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class User::DestroyService < ApplicationService
+      ^^^^^^^^^^^^^^^^^^^^
+app/services/user/recover_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class User::RecoverService.
+class User::RecoverService < ApplicationService
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/services/user/recover_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class User::RecoverService < ApplicationService
+^
+app/services/user/recover_service.rb:1:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class User::RecoverService < ApplicationService
+      ^^^^^^^^^^^^^^^^^^^^
+app/services/user/search_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class User::SearchService.
+class User::SearchService < SearchService
+^^^^^^^^^^^^^^^^^^^^^^^^^
+app/services/user/search_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class User::SearchService < SearchService
+^
+app/services/user/search_service.rb:1:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class User::SearchService < SearchService
+      ^^^^^^^^^^^^^^^^^^^
+app/services/user/show_service.rb:1:1: C: Style/Documentation: Missing top-level documentation comment for class User::ShowService.
+class User::ShowService < ApplicationService
+^^^^^^^^^^^^^^^^^^^^^^^
+app/services/user/show_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+class User::ShowService < ApplicationService
+^
+app/services/user/show_service.rb:1:7: C: [Correctable] Style/ClassAndModuleChildren: Use nested module/class definitions instead of compact style.
+class User::ShowService < ApplicationService
+      ^^^^^^^^^^^^^^^^^
+app/services/user/update_service.rb:1:1: W: Lint/MissingCopEnableDirective: Re-enable Style/ClassAndModuleChildren cop with # rubocop:enable after disabling it.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
+^
+app/services/user/update_service.rb:1:1: C: [Correctable] Style/FrozenStringLiteralComment: Missing frozen string literal comment.
+# rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
+^
+
+106 files inspected, 146 offenses detected, 59 offenses auto-correctable
