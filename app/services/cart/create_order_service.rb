@@ -1,5 +1,5 @@
 # rubocop:disable Style/ClassAndModuleChildren,Style/Documentation,Style/GuardClause
-class Cart::CheckoutService < ApplicationService
+class Cart::CreateOrderService < ApplicationService
   attr_reader :current_user
 
   def initialize(current_user)
@@ -12,7 +12,12 @@ class Cart::CheckoutService < ApplicationService
     cart_to_order_attributes
     order_form = OrderForm.new(@attributes)
     validate(order_form)
-    session_data
+    create_order
+    @order = Order.includes(order_lines: { product: { likes: :user } }).find(@order.id)
+    stock_notification
+    @cart.destroy
+    json = render_json
+    [json, @order]
   end
 
   private
@@ -32,7 +37,22 @@ class Cart::CheckoutService < ApplicationService
     end
   end
 
-  def session_data
-    SessionDataRepresenter.new(@cart).to_hash
+  def create_order
+    @order = Order.create(@attributes)
+  end
+
+  def stock_notification
+    @order.products.each do |product|
+      stock = product.stock
+      user_id = product.likes.unscope(:order).last&.user_id
+
+      if user_id.present? && stock <= 3
+        ProductMailer.with(product_id: product.id, recipient_id: user_id).stock_notification.deliver_later
+      end
+    end
+  end
+
+  def render_json
+    OrderRepresenter.jsonapi_new(@order).to_json
   end
 end

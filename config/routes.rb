@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :product_tags, only: %i[create]
   end
   resource :cart, only: [:show] do
-    get 'checkout'
+    post 'checkout', on: :member
   end
   resources :line_items, only: %i[destroy]
   resolve('Cart') { [:cart] }
@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :comments, only: %i[edit update destroy]
   resources :tags, except: [:show]
   resources :product_tags, only: %i[destroy]
+  resources :stripe_transactions, only: %i[index]
 
   # Sidekiq Web UI, only for admins.
   require 'sidekiq/web'
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
 
       post 'auth/login', to: 'authentication#login'
       resources :products, only: %i[show index]
+      post 'stripe_webhooks', to: 'stripe#stripe_webhooks'
 
       # admin
 
@@ -54,6 +56,7 @@ Rails.application.routes.draw do
         resources :users, only: %i[create update destroy index show] do
           patch 'recover', on: :member
         end
+        resources :stripe_transactions, only: %i[index show]
       end
 
       # support
@@ -79,6 +82,7 @@ Rails.application.routes.draw do
           end
           post 'checkout', on: :member
         end
+        resources :stripe_transactions, only: %i[index show]
       end
     end
   end

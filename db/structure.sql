@@ -436,6 +436,80 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: stripe_transaction_lines; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stripe_transaction_lines (
+    id bigint NOT NULL,
+    stripe_transaction_id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    quantity integer,
+    price numeric(8,2),
+    total numeric(8,2),
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: stripe_transaction_lines_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.stripe_transaction_lines_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: stripe_transaction_lines_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.stripe_transaction_lines_id_seq OWNED BY public.stripe_transaction_lines.id;
+
+
+--
+-- Name: stripe_transactions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stripe_transactions (
+    id bigint NOT NULL,
+    date date,
+    user_id bigint NOT NULL,
+    amount numeric(8,2),
+    card_country character varying,
+    currency character varying,
+    status character varying,
+    card_brand character varying,
+    card_funding character varying,
+    network character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: stripe_transactions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.stripe_transactions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: stripe_transactions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.stripe_transactions_id_seq OWNED BY public.stripe_transactions.id;
+
+
+--
 -- Name: tags; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -585,6 +659,20 @@ ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.pro
 
 
 --
+-- Name: stripe_transaction_lines id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_transaction_lines ALTER COLUMN id SET DEFAULT nextval('public.stripe_transaction_lines_id_seq'::regclass);
+
+
+--
+-- Name: stripe_transactions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_transactions ALTER COLUMN id SET DEFAULT nextval('public.stripe_transactions_id_seq'::regclass);
+
+
+--
 -- Name: tags id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -700,6 +788,22 @@ ALTER TABLE ONLY public.products
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: stripe_transaction_lines stripe_transaction_lines_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_transaction_lines
+    ADD CONSTRAINT stripe_transaction_lines_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: stripe_transactions stripe_transactions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_transactions
+    ADD CONSTRAINT stripe_transactions_pkey PRIMARY KEY (id);
 
 
 --
@@ -852,6 +956,27 @@ CREATE INDEX index_product_tags_on_tag_id ON public.product_tags USING btree (ta
 
 
 --
+-- Name: index_stripe_transaction_lines_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_stripe_transaction_lines_on_product_id ON public.stripe_transaction_lines USING btree (product_id);
+
+
+--
+-- Name: index_stripe_transaction_lines_on_stripe_transaction_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_stripe_transaction_lines_on_stripe_transaction_id ON public.stripe_transaction_lines USING btree (stripe_transaction_id);
+
+
+--
+-- Name: index_stripe_transactions_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_stripe_transactions_on_user_id ON public.stripe_transactions USING btree (user_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -878,6 +1003,14 @@ CREATE INDEX index_users_on_user_role ON public.users USING btree (user_role);
 
 ALTER TABLE ONLY public.comments
     ADD CONSTRAINT fk_rails_03de2dc08c FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: stripe_transaction_lines fk_rails_0df300228b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_transaction_lines
+    ADD CONSTRAINT fk_rails_0df300228b FOREIGN KEY (product_id) REFERENCES public.products(id);
 
 
 --
@@ -929,11 +1062,27 @@ ALTER TABLE ONLY public.line_items
 
 
 --
+-- Name: stripe_transaction_lines fk_rails_b6e55e9f14; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_transaction_lines
+    ADD CONSTRAINT fk_rails_b6e55e9f14 FOREIGN KEY (stripe_transaction_id) REFERENCES public.stripe_transactions(id);
+
+
+--
 -- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.active_storage_attachments
     ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: stripe_transactions fk_rails_cb6036cfe9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_transactions
+    ADD CONSTRAINT fk_rails_cb6036cfe9 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -1003,6 +1152,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220424031739'),
 ('20220424031759'),
 ('20220424084119'),
-('20220425054323');
+('20220425054323'),
+('20220430081605'),
+('20220430081614');
 
 

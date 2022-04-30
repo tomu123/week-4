@@ -91,4 +91,5 @@ Rails.application.configure do
     authentication: ENV['SMTP_AUTHENTICATION'],
     enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO']
   }
+  Stripe.api_key = ENV['STRIPE_SECRET_KEY']
 end

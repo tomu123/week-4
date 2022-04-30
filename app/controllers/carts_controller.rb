@@ -7,11 +7,13 @@ class CartsController < ApplicationController
   def show; end
 
   def checkout
-    Cart::CheckoutService.call(@current_user)
-    flash[:notice] = 'Your purchase was successful'
-    redirect_to products_url
+    session = Stripe::Checkout::Session.create(Cart::CheckoutService.call(@current_user))
+    redirect_to session.url
+  rescue CustomError => e
+    flash.now[:alert] = e.message&.values&.flatten
+    render :show
   rescue StandardError => e
-    flash.now[:alert] = e.message.values.flatten
+    flash.now[:alert] = e.message
     render :show
   end
 

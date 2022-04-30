@@ -11,7 +11,7 @@ module Api
         end
 
         def checkout
-          json, order = Cart::CheckoutService.call(@current_user)
+          json, order = Cart::CreateOrderService.call(@current_user)
           render json: json, status: :created, location: api_v1_customer_order_url(order)
         end
       end

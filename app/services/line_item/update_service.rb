@@ -40,6 +40,6 @@ class LineItem::UpdateService < ApplicationService
   end
 
   def render_json
-    LineItemRepresenter.jsonapi_new(@line_item).to_json
+    LineRepresenter.jsonapi_new(@line_item).to_json
   end
 end

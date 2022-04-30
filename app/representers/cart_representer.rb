@@ -6,14 +6,5 @@ class CartRepresenter < ApplicationRepresenter
   end
   property :total
 
-  collection :line_items, class: LineItem do
-    property :id
-    property :product do
-      property :id
-      property :name
-    end
-    property :quantity
-    property :price, as: :unit_price
-    property :total, as: :subtotal
-  end
+  collection :line_items, class: LineItem, decorator: LineRepresenter
 end

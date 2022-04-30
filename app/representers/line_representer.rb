@@ -1,4 +1,4 @@
-class LineItemRepresenter < ApplicationRepresenter
+class LineRepresenter < ApplicationRepresenter
   property :id
   property :product do
     property :id
