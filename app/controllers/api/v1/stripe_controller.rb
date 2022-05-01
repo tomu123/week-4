@@ -6,6 +6,7 @@ module Api
     class StripeController < Api::V1::ApplicationController
       def stripe_webhooks
         Stripe::WebhookService.call(stripe_params)
+        head :no_content
       end
 
       private
