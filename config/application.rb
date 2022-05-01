@@ -27,5 +27,6 @@ module Week4
 
     # The Active Job adapter must be set to :sidekiq or else it will use the default value provided by Rails, which is :async
     config.active_job.queue_adapter = :sidekiq
+    Stripe.api_key = ENV['STRIPE_SECRET_KEY']
   end
 end
