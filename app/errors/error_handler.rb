@@ -26,6 +26,6 @@ module ErrorHandler
 
   def respond(status, error = nil, message = nil)
     json = Helpers::Render.json(error, message)
-    json.nil? ? head(status) : render(json: json, status: status)
+    json.blank? ? head(status) : render(json: json, status: status)
   end
 end

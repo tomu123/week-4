@@ -5,14 +5,8 @@ module Api
     # public Stripe Controller
     class StripeController < Api::V1::ApplicationController
       def stripe_webhooks
-        Stripe::WebhookService.call(stripe_params)
+        Stripe::WebhookService.call(request.headers['Stripe-Signature'], request.body.read)
         head :no_content
-      end
-
-      private
-
-      def stripe_params
-        params.permit!
       end
     end
   end

@@ -1,10 +1,10 @@
 # rubocop:disable Style/ClassAndModuleChildren,Style/Documentation
 class StripeTransaction::CreateService < ApplicationService
-  attr_reader :cart, :event
+  attr_reader :user, :event
 
-  def initialize(cart, event = {})
+  def initialize(user, event = {})
     super()
-    @cart = cart
+    @user = user
     @event = event
   end
 
@@ -17,13 +17,13 @@ class StripeTransaction::CreateService < ApplicationService
   private
 
   def find_cart
-    @cart = Cart.includes(line_items: :product).find(@cart.id)
+    @cart = Cart.includes(line_items: :product).find_by(user: user)
   end
 
   def stripe_transaction_attributes
     @attributes = {
       date: Time.current,
-      user: cart.user,
+      user: user,
       amount: event.dig(:data, :object, :amount),
       card_country: event.dig(:data, :object, :payment_method_details, :card, :country),
       currency: event.dig(:data, :object, :currency),
@@ -31,7 +31,7 @@ class StripeTransaction::CreateService < ApplicationService
       card_brand: event.dig(:data, :object, :payment_method_details, :card, :brand),
       card_funding: event.dig(:data, :object, :payment_method_details, :card, :funding),
       network: event.dig(:data, :object, :payment_method_details, :card, :network),
-      stripe_transaction_lines_attributes: LineDataRepresenter.for_collection.new(cart.line_items).to_hash
+      stripe_transaction_lines_attributes: LineDataRepresenter.for_collection.new(@cart&.line_items || []).to_hash
     }
   end
 
